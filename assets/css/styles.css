@@ -1,0 +1,56 @@
+/* ── SIDEBAR ── */
+#sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #212529;
+  flex-shrink: 0;
+}
+
+#sidebar .sidebar-brand {
+  background-color: #b02a37;
+  padding: 20px;
+}
+
+#sidebar .nav-link {
+  color: #adb5bd;
+  padding: 10px 20px;
+  border-radius: 0;
+  transition: background .2s, color .2s;
+}
+
+#sidebar .nav-link:hover,
+#sidebar .nav-link.active {
+  background-color: #b02a37;
+  color: #fff;
+}
+
+#sidebar .nav-link i {
+  width: 20px;
+}
+
+#sidebar .sidebar-divider {
+  border-color: #495057;
+  margin: 8px 16px;
+}
+
+/* ── MAIN ── */
+#main {
+  flex: 1;
+  background-color: #212529;
+  min-height: 100vh;
+  border-left: 3px solid #b02a37;
+}
+
+/* ── TOPBAR ── */
+#topbar {
+  background-color: #2b2b2b;
+  border-bottom: 1px solid #495057;
+  padding: 12px 24px;
+}
+
+/* ── CONTENT CONTAINER ── */
+.content-box {
+  background-color: #2b3035;
+  border-radius: 0.5rem;
+  padding: 24px;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CinemaX — {{title}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css" rel="stylesheet" />
+    <script src="//cdn.datatables.net/2.3.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body class="bg-dark">
+
+    <div class="d-flex">
+
+        <!-- SIDEBAR -->
+        <div id="sidebar">
+            <div class="sidebar-brand text-white text-center">
+                <i class="bi bi-film fs-3"></i>
+                <div class="fw-bold mt-1">CinemaX</div>
+                <small class="text-white-50">Pannello Admin</small>
+            </div>
+            <nav class="nav flex-column mt-3">
+                <a href="dashboard.php" class="nav-link {{active_dashboard}}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+                <a href="film.php" class="nav-link {{active_film}}"><i class="bi bi-camera-reels me-2"></i>Film</a>
+                <a href="programmazione.php" class="nav-link {{active_programmazione}}"><i class="bi bi-calendar3 me-2"></i>Programmazione</a>
+                <a href="biglietti.php" class="nav-link {{active_biglietti}}"><i class="bi bi-ticket-perforated me-2"></i>Biglietti</a>
+                <a href="admin-utenti.php" class="nav-link {{active_utenti}}"><i class="bi bi-people me-2"></i>Utenti</a>
+                <hr class="sidebar-divider" />
+                <a href="statistiche.php" class="nav-link {{active_statistiche}}"><i class="bi bi-bar-chart me-2"></i>Statistiche</a>
+                <a href="impostazioni.php" class="nav-link {{active_impostazioni}}"><i class="bi bi-gear me-2"></i>Impostazioni</a>
+                <hr class="sidebar-divider" />
+                <a href="login.php" class="nav-link text-danger"><i class="bi bi-box-arrow-left me-2"></i>Logout</a>
+            </nav>
+        </div>
+
+        <!-- CONTENUTO -->
+        <div id="main" class="bg-dark text-white">
+            <div id="topbar" class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-white">{{title}}</h5>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-person-circle fs-4 text-light"></i>
+                    <span class="small text-light">{{admin_name}}</span>
+                </div>
+            </div>
+            <div class="p-4 bg-dark shadow-sm rounded ">
+
+                {{body}}
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js?v=<?php echo file_exists(__DIR__ . '/assets/js/script.js') ? filemtime(__DIR__ . '/assets/js/script.js') : 0; ?>"></script>
+</body>
+
+</html>
