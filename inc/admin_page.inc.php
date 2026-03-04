@@ -7,11 +7,11 @@
     <title>CinemaX — {{title}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="/BucignoCinema/assets/css/styles.css" />
     <link href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css" rel="stylesheet" />
     <script src="//cdn.datatables.net/2.3.7/js/jquery.dataTables.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="/BucignoCinema/assets/js/script.js"></script>
 </head>
 
 <body class="bg-dark">
@@ -26,16 +26,15 @@
                 <small class="text-white-50">Pannello Admin</small>
             </div>
             <nav class="nav flex-column mt-3">
-                <a href="dashboard.php" class="nav-link {{active_dashboard}}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-                <a href="film.php" class="nav-link {{active_film}}"><i class="bi bi-camera-reels me-2"></i>Film</a>
-                <a href="programmazione.php" class="nav-link {{active_programmazione}}"><i class="bi bi-calendar3 me-2"></i>Programmazione</a>
-                <a href="biglietti.php" class="nav-link {{active_biglietti}}"><i class="bi bi-ticket-perforated me-2"></i>Biglietti</a>
-                <a href="admin-utenti.php" class="nav-link {{active_utenti}}"><i class="bi bi-people me-2"></i>Utenti</a>
+                <a href="/BucignoCinema/Sub_Admin/admin-cinema.php" class="nav-link {{active_dashboard}}"><i class="bi bi-speedometer2 me-2"></i>Cinema</a>
+                <a href="/BucignoCinema/Sub_Admin/admin-spettacoli.php" class="nav-link {{active_film}}"><i class="bi bi-camera-reels me-2"></i>Spettacoli</a>
+                <a href="/BucignoCinema/Sub_Admin/admin-proiezioni.php" class="nav-link {{active_programmazione}}"><i class="bi bi-calendar3 me-2"></i>Programmazione</a>
+                <a href="/BucignoCinema/Sub_Admin/admin-prenotazioni.php" class="nav-link {{active_biglietti}}"><i class="bi bi-ticket-perforated me-2"></i>Prenotazioni</a>
+                <a href="/BucignoCinema/Sub_Admin/admin-clienti.php" class="nav-link {{active_utenti}}"><i class="bi bi-people me-2"></i>Clienti</a>
                 <hr class="sidebar-divider" />
-                <a href="statistiche.php" class="nav-link {{active_statistiche}}"><i class="bi bi-bar-chart me-2"></i>Statistiche</a>
-                <a href="impostazioni.php" class="nav-link {{active_impostazioni}}"><i class="bi bi-gear me-2"></i>Impostazioni</a>
+
                 <hr class="sidebar-divider" />
-                <a href="login.php" class="nav-link text-danger"><i class="bi bi-box-arrow-left me-2"></i>Logout</a>
+                <a href="/BucignoCinema/login.php" class="nav-link text-danger"><i class="bi bi-box-arrow-left me-2"></i>Logout</a>
             </nav>
         </div>
 
