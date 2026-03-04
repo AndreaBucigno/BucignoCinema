@@ -22,7 +22,7 @@
         <div id="sidebar">
             <div class="sidebar-brand text-white text-center">
                 <i class="bi bi-film fs-3"></i>
-                <div class="fw-bold mt-1">CinemaX</div>
+                <div class="fw-bold mt-1">Bucigno Cinema</div>
                 <small class="text-white-50">Pannello Admin</small>
             </div>
             <nav class="nav flex-column mt-3">

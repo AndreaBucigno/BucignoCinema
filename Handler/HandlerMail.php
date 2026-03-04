@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/assets/lib/vendor/autoload.php';
+require_once __DIR__ . '/../assets/lib/vendor/autoload.php';
 
 
 use PHPMailer\PHPMailer\PHPMailer;
