@@ -2,7 +2,8 @@
 require_once __DIR__ . "/../config/db.php";
 
 $proiezioni = $pdo->query("
-    SELECT p.id, p.data_ora, s.titolo AS spettacolo, sa.nome AS sala, c.nome AS cinema
+    SELECT p.id, p.data_ora, p.id_spettacolo, p.id_sala,
+           s.titolo AS spettacolo, sa.nome AS sala, c.nome AS cinema
     FROM proiezione p
     JOIN spettacolo s ON p.id_spettacolo = s.id
     JOIN sala sa ON p.id_sala = sa.id
@@ -46,7 +47,7 @@ $body = "
 <div class='modal fade' id='addProiezioneModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
     <div class='modal-header bg-danger text-white border-0'><h5 class='modal-title fw-bold'><i class='bi bi-plus-circle me-2'></i>Aggiungi Proiezione</h5><button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/proiezione_handler.php' id='addProiezioneForm'><input type='hidden' name='action' value='add'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/ProiezioneHandler.php' id='addProiezioneForm'><input type='hidden' name='action' value='add'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Data e Ora</label><input type='datetime-local' class='form-control' name='data_ora' required></div>
         <div class='col-md-6'><label class='form-label text-white'>Spettacolo</label><select class='form-select' name='id_spettacolo' required>$optSpettacoli</select></div>
@@ -61,7 +62,7 @@ $body = "
 <div class='modal fade' id='editProiezioneModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
     <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Proiezione</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/proiezione_handler.php' id='editProiezioneForm'><input type='hidden' name='action' value='edit'><input type='hidden' name='id' id='editId'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/ProiezioneHandler.php' id='editProiezioneForm'><input type='hidden' name='action' value='edit'><input type='hidden' name='id' id='editId'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Data e Ora</label><input type='datetime-local' class='form-control' name='data_ora' id='editData' required></div>
         <div class='col-md-6'><label class='form-label text-white'>Spettacolo</label><select class='form-select' name='id_spettacolo' id='editSpettacolo'>$optSpettacoli</select></div>

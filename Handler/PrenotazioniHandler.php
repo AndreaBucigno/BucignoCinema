@@ -12,5 +12,5 @@ switch ($_POST['action'] ?? '') {
             ]);
         break;
 }
-header("Location: ../admin-prenotazioni.php");
+header("Location: ../Sub_Admin/admin-prenotazioni.php");
 exit;

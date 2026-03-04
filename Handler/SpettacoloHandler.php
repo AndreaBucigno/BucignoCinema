@@ -40,5 +40,5 @@ switch ($action) {
         break;
 }
 
-header("Location: ../admin-spettacoli.php");
+header("Location: ../Sub_Admin/admin-spettacoli.php");
 exit;

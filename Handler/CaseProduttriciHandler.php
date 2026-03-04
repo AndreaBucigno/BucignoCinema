@@ -10,5 +10,5 @@ switch ($_POST['action'] ?? '') {
             ->execute([':id' => $_POST['id'], ':nome' => $_POST['nome'], ':sede' => $_POST['sede'] ?: null]);
         break;
 }
-header("Location: ../admin-case.php");
+header("Location: ../Sub_Admin/admin-case.php");
 exit;

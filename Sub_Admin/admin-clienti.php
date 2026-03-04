@@ -29,7 +29,7 @@ $body = "
 <div class='modal fade' id='addClienteModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
     <div class='modal-header bg-danger text-white border-0'><h5 class='modal-title fw-bold'><i class='bi bi-plus-circle me-2'></i>Aggiungi Cliente</h5><button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/cliente_handler.php' id='addClienteForm'><input type='hidden' name='action' value='add'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/ClienteHandler.php' id='addClienteForm'><input type='hidden' name='action' value='add'>
       <div class='row g-3'>
         <div class='col-md-6'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' required></div>
         <div class='col-md-6'><label class='form-label text-white'>Cognome</label><input type='text' class='form-control' name='cognome' required></div>
@@ -44,7 +44,7 @@ $body = "
 <div class='modal fade' id='editClienteModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
     <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Cliente</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/cliente_handler.php' id='editClienteForm'><input type='hidden' name='action' value='edit'><input type='hidden' name='id' id='editId'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/ClienteHandler.php' id='editClienteForm'><input type='hidden' name='action' value='edit'><input type='hidden' name='id' id='editId'>
       <div class='row g-3'>
         <div class='col-md-6'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' id='editNome' required></div>
         <div class='col-md-6'><label class='form-label text-white'>Cognome</label><input type='text' class='form-control' name='cognome' id='editCognome' required></div>

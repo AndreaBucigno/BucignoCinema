@@ -10,5 +10,5 @@ switch ($_POST['action'] ?? '') {
             ->execute([':id' => $_POST['id'], ':nome' => $_POST['nome'], ':cognome' => $_POST['cognome'], ':data_nascita' => $_POST['data_nascita'] ?: null]);
         break;
 }
-header("Location: ../admin-registi.php");
+header("Location: ../Sub_Admin/admin-registi.php");
 exit;

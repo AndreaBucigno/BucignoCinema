@@ -10,5 +10,5 @@ switch ($_POST['action'] ?? '') {
             ->execute([':id' => $_POST['id'], ':data_ora' => $_POST['data_ora'], ':id_spettacolo' => $_POST['id_spettacolo'], ':id_sala' => $_POST['id_sala']]);
         break;
 }
-header("Location: ../admin-proiezioni.php");
+header("Location: ../Sub_Admin/admin-proiezioni.php");
 exit;

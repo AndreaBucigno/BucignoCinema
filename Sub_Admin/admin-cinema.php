@@ -52,7 +52,7 @@ $body = "
 <div class='modal fade' id='addCinemaModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
     <div class='modal-header bg-danger text-white border-0'><h5 class='modal-title fw-bold'><i class='bi bi-plus-circle me-2'></i>Aggiungi Cinema</h5><button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/cinema_handler.php' id='addCinemaForm'><input type='hidden' name='action' value='add_cinema'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/CinemaHandler.php' id='addCinemaForm'><input type='hidden' name='action' value='add_cinema'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' required placeholder='Nome cinema'></div>
         <div class='col-md-8'><label class='form-label text-white'>Indirizzo</label><input type='text' class='form-control' name='indirizzo' placeholder='Via...'></div>
@@ -67,7 +67,7 @@ $body = "
 <div class='modal fade' id='editCinemaModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
     <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Cinema</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/cinema_handler.php' id='editCinemaForm'><input type='hidden' name='action' value='edit_cinema'><input type='hidden' name='id' id='editCinemaId'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/CinemaHandler.php' id='editCinemaForm'><input type='hidden' name='action' value='edit_cinema'><input type='hidden' name='id' id='editCinemaId'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' id='editCinemaNome' required></div>
         <div class='col-md-8'><label class='form-label text-white'>Indirizzo</label><input type='text' class='form-control' name='indirizzo' id='editCinemaInd'></div>

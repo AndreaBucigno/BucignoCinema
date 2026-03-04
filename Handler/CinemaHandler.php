@@ -20,7 +20,7 @@ switch ($_POST['action'] ?? '') {
     case 'edit_sala':
         $pdo->prepare("UPDATE sala SET nome=:nome,capienza=:capienza,id_cinema=:id_cinema WHERE id=:id")
             ->execute([':id' => $_POST['id'], ':nome' => $_POST['nome'] ?: null, ':capienza' => $_POST['capienza'], ':id_cinema' => $_POST['id_cinema']]);
-        header("Location: ../admin-cinema.php");
+        header("Location: ../Sub_Admin/admin-cinema.php");
         break;
 }
 exit;

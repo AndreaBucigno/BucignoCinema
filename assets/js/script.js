@@ -1,133 +1,98 @@
-//TABELLA SPETTACOLI
-document.getElementById('editSpettacoloModal').addEventListener('show.bs.modal', function(e) {
-    const btn = e.relatedTarget;
-    document.getElementById('editId').value       = btn.dataset.id;
-    document.getElementById('editTitolo').value   = btn.dataset.titolo;
-    document.getElementById('editTrama').value    = btn.dataset.trama;
-    document.getElementById('editRegista').value  = btn.dataset.regista;
-    document.getElementById('editTematica').value = btn.dataset.tematica;
-    document.getElementById('editCasa').value     = btn.dataset.casa;
-});
-
-
-document.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteId').value      = this.dataset.id;
-        document.getElementById('deleteTitolo').textContent = this.dataset.titolo;
-        new bootstrap.Modal(document.getElementById('deleteSpettacoloModal')).show();
+// ── SPETTACOLI ──
+const editSpettacoloModal = document.getElementById('editSpettacoloModal');
+if (editSpettacoloModal) {
+    editSpettacoloModal.addEventListener('show.bs.modal', function(e) {
+        const btn = e.relatedTarget;
+        document.getElementById('editId').value       = btn.dataset.id;
+        document.getElementById('editTitolo').value   = btn.dataset.titolo;
+        document.getElementById('editTrama').value    = btn.dataset.trama;
+        document.getElementById('editRegista').value  = btn.dataset.regista;
+        document.getElementById('editTematica').value = btn.dataset.tematica;
+        document.getElementById('editCasa').value     = btn.dataset.casa;
     });
-});
+}
+if (document.getElementById('spettacoliTable')) {
+    new DataTable('#spettacoliTable');
+}
 
-
-new DataTable('#spettacoliTable');
-
-//TABELLA REGISTI
-document.getElementById('editRegistaModal').addEventListener('show.bs.modal', function(e) {
-    const btn = e.relatedTarget;
-    document.getElementById('editId').value      = btn.dataset.id;
-    document.getElementById('editNome').value    = btn.dataset.nome;
-    document.getElementById('editCognome').value = btn.dataset.cognome;
-    document.getElementById('editNascita').value = btn.dataset.nascita === '—' ? '' : btn.dataset.nascita;
-});
-document.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteId').value          = this.dataset.id;
-        document.getElementById('deleteNome').textContent  = this.dataset.nome;
-        new bootstrap.Modal(document.getElementById('deleteRegistaModal')).show();
+// ── REGISTI ──
+const editRegistaModal = document.getElementById('editRegistaModal');
+if (editRegistaModal) {
+    editRegistaModal.addEventListener('show.bs.modal', function(e) {
+        const btn = e.relatedTarget;
+        document.getElementById('editId').value      = btn.dataset.id;
+        document.getElementById('editNome').value    = btn.dataset.nome;
+        document.getElementById('editCognome').value = btn.dataset.cognome;
+        document.getElementById('editNascita').value = btn.dataset.nascita === '—' ? '' : btn.dataset.nascita;
     });
-});
-new DataTable('#registiTable');
+}
+if (document.getElementById('registiTable')) {
+    new DataTable('#registiTable');
+}
 
-
-//CASE PRODUTTRICI
-document.getElementById('editCasaModal').addEventListener('show.bs.modal', function(e) {
-    const btn = e.relatedTarget;
-    document.getElementById('editId').value   = btn.dataset.id;
-    document.getElementById('editNome').value = btn.dataset.nome;
-    document.getElementById('editSede').value = btn.dataset.sede === '—' ? '' : btn.dataset.sede;
-});
-document.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteId').value         = this.dataset.id;
-        document.getElementById('deleteNome').textContent = this.dataset.nome;
-        new bootstrap.Modal(document.getElementById('deleteCasaModal')).show();
+// ── CASE PRODUTTRICI ──
+const editCasaModal = document.getElementById('editCasaModal');
+if (editCasaModal) {
+    editCasaModal.addEventListener('show.bs.modal', function(e) {
+        const btn = e.relatedTarget;
+        document.getElementById('editId').value   = btn.dataset.id;
+        document.getElementById('editNome').value = btn.dataset.nome;
+        document.getElementById('editSede').value = btn.dataset.sede === '—' ? '' : btn.dataset.sede;
     });
-});
-new DataTable('#caseTable');
+}
+if (document.getElementById('caseTable')) {
+    new DataTable('#caseTable');
+}
 
-//cinema e sale 
-document.getElementById('editCinemaModal').addEventListener('show.bs.modal', function(e) {
-    const b = e.relatedTarget;
-    document.getElementById('editCinemaId').value    = b.dataset.id;
-    document.getElementById('editCinemaNome').value  = b.dataset.nome;
-    document.getElementById('editCinemaInd').value   = b.dataset.indirizzo === '—' ? '' : b.dataset.indirizzo;
-    document.getElementById('editCinemaCitta').value = b.dataset.citta === '—' ? '' : b.dataset.citta;
-});
-document.querySelectorAll('.btn-delete-cinema').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteCinemaId').value          = this.dataset.id;
-        document.getElementById('deleteCinemaNome').textContent  = this.dataset.nome;
-        new bootstrap.Modal(document.getElementById('deleteCinemaModal')).show();
+// ── CINEMA & SALE ──
+const editCinemaModal = document.getElementById('editCinemaModal');
+if (editCinemaModal) {
+    editCinemaModal.addEventListener('show.bs.modal', function(e) {
+        const b = e.relatedTarget;
+        document.getElementById('editCinemaId').value    = b.dataset.id;
+        document.getElementById('editCinemaNome').value  = b.dataset.nome;
+        document.getElementById('editCinemaInd').value   = b.dataset.indirizzo === '—' ? '' : b.dataset.indirizzo;
+        document.getElementById('editCinemaCitta').value = b.dataset.citta === '—' ? '' : b.dataset.citta;
     });
-});
-document.getElementById('editSalaModal').addEventListener('show.bs.modal', function(e) {
-    const b = e.relatedTarget;
-    document.getElementById('editSalaId').value       = b.dataset.id;
-    document.getElementById('editSalaNome').value     = b.dataset.nome;
-    document.getElementById('editSalaCapienza').value = b.dataset.capienza;
-    document.getElementById('editSalaCinema').value   = b.dataset.cinema;
-});
-document.querySelectorAll('.btn-delete-sala').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteSalaId').value          = this.dataset.id;
-        document.getElementById('deleteSalaNome').textContent  = this.dataset.nome;
-        new bootstrap.Modal(document.getElementById('deleteSalaModal')).show();
+}
+const editSalaModal = document.getElementById('editSalaModal');
+if (editSalaModal) {
+    editSalaModal.addEventListener('show.bs.modal', function(e) {
+        const b = e.relatedTarget;
+        document.getElementById('editSalaId').value       = b.dataset.id;
+        document.getElementById('editSalaNome').value     = b.dataset.nome;
+        document.getElementById('editSalaCapienza').value = b.dataset.capienza;
+        document.getElementById('editSalaCinema').value   = b.dataset.cinema;
     });
-});
-new DataTable('#cinemaTable');
-new DataTable('#saleTable');
+}
+if (document.getElementById('cinemaTable')) new DataTable('#cinemaTable');
+if (document.getElementById('saleTable'))   new DataTable('#saleTable');
 
-//proiezioni
-document.getElementById('editProiezioneModal').addEventListener('show.bs.modal', function(e) {
-    const b = e.relatedTarget;
-    document.getElementById('editId').value          = b.dataset.id;
-    document.getElementById('editData').value        = b.dataset.data.replace(' ','T');
-    document.getElementById('editSpettacolo').value  = b.dataset.spettacolo;
-    document.getElementById('editSala').value        = b.dataset.sala;
-});
-document.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteId').value          = this.dataset.id;
-        document.getElementById('deleteNome').textContent  = this.dataset.nome;
-        new bootstrap.Modal(document.getElementById('deleteProiezioneModal')).show();
+// ── PROIEZIONI ──
+const editProiezioneModal = document.getElementById('editProiezioneModal');
+if (editProiezioneModal) {
+    editProiezioneModal.addEventListener('show.bs.modal', function(e) {
+        const b = e.relatedTarget;
+        document.getElementById('editId').value         = b.dataset.id;
+        document.getElementById('editData').value       = b.dataset.data.replace(' ', 'T');
+        document.getElementById('editSpettacolo').value = b.dataset.spettacolo;
+        document.getElementById('editSala').value       = b.dataset.sala;
     });
-});
-new DataTable('#proiezioniTable');
+}
+if (document.getElementById('proiezioniTable')) new DataTable('#proiezioniTable');
 
-//prenotazioni
-document.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteId').value          = this.dataset.id;
-        document.getElementById('deleteNome').textContent  = this.dataset.nome;
-        new bootstrap.Modal(document.getElementById('deletePrenotazioneModal')).show();
+// ── PRENOTAZIONI ──
+if (document.getElementById('prenotazioniTable')) new DataTable('#prenotazioniTable');
+
+// ── CLIENTI ──
+const editClienteModal = document.getElementById('editClienteModal');
+if (editClienteModal) {
+    editClienteModal.addEventListener('show.bs.modal', function(e) {
+        const b = e.relatedTarget;
+        document.getElementById('editId').value      = b.dataset.id;
+        document.getElementById('editNome').value    = b.dataset.nome;
+        document.getElementById('editCognome').value = b.dataset.cognome;
+        document.getElementById('editNascita').value = b.dataset.nascita === '—' ? '' : b.dataset.nascita;
     });
-});
-new DataTable('#prenotazioniTable');
-
-//clienti
-
-document.getElementById('editClienteModal').addEventListener('show.bs.modal', function(e) {
-    const b = e.relatedTarget;
-    document.getElementById('editId').value      = b.dataset.id;
-    document.getElementById('editNome').value    = b.dataset.nome;
-    document.getElementById('editCognome').value = b.dataset.cognome;
-    document.getElementById('editNascita').value = b.dataset.nascita === '—' ? '' : b.dataset.nascita;
-});
-document.querySelectorAll('.btn-delete').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.getElementById('deleteId').value          = this.dataset.id;
-        document.getElementById('deleteNome').textContent  = this.dataset.nome;
-        new bootstrap.Modal(document.getElementById('deleteClienteModal')).show();
-    });
-});
-new DataTable('#clientiTable');
+}
+if (document.getElementById('clientiTable')) new DataTable('#clientiTable');

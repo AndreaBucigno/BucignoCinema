@@ -17,7 +17,7 @@ foreach ($case as $c) {
                 data-bs-toggle='modal' data-bs-target='#editCasaModal'
                 data-id='{$c['id']}' data-nome='{$nome}' data-sede='{$sede}'>
                 <i class='bi bi-pencil'></i> Edit
-            </button>s
+            </button>
         </td>
     </tr>";
 }
@@ -35,7 +35,7 @@ $body = "
         <button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button>
       </div>
       <div class='modal-body p-4'>
-        <form method='POST' action='handler/casa_handler.php' id='addCasaForm'>
+        <form method='POST' action='../Handler/CaseProduttriciHandler.php' id='addCasaForm'>
           <input type='hidden' name='action' value='add'>
           <div class='row g-3'>
             <div class='col-12'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' required placeholder='Nome casa produttrice'></div>
@@ -60,7 +60,7 @@ $body = "
         <button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button>
       </div>
       <div class='modal-body p-4'>
-        <form method='POST' action='handler/casa_handler.php' id='editCasaForm'>
+        <form method='POST' action='../Handler/CaseProduttriciHandler.php' id='editCasaForm'>
           <input type='hidden' name='action' value='edit'>
           <input type='hidden' name='id' id='editId'>
           <div class='row g-3'>

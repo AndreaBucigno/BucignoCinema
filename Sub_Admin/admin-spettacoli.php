@@ -7,6 +7,9 @@ $stmt = $pdo->query("
         s.id,
         s.titolo,
         s.trama,
+        s.id_regista,
+        s.id_tematica,
+        s.id_casa_produttrice,
         CONCAT(r.nome, ' ', r.cognome) AS regista,
         t.nome AS tematica,
         cp.nome AS casa_produttrice
@@ -87,7 +90,7 @@ $body = "
         <button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button>
       </div>
       <div class='modal-body p-4'>
-        <form method='POST' action='handler/spettacolo_handler.php' id='addSpettacoloForm'>
+        <form method='POST' action='../Handler/SpettacoloHandler.php' id='addSpettacoloForm'>
           <input type='hidden' name='action' value='add'>
           <div class='row g-3'>
             <div class='col-12'>
@@ -132,7 +135,7 @@ $body = "
         <button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button>
       </div>
       <div class='modal-body p-4'>
-        <form method='POST' action='handler/spettacolo_handler.php' id='editSpettacoloForm'>
+        <form method='POST' action='../Handler/SpettacoloHandler.php' id='editSpettacoloForm'>
           <input type='hidden' name='action' value='edit'>
           <input type='hidden' name='id' id='editId'>
           <div class='row g-3'>

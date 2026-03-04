@@ -1,95 +1,93 @@
 <?php
 require_once __DIR__ . "/../config/db.php";
 
-$proiezioni = $pdo->query("
-    SELECT p.id, p.data_ora, p.id_spettacolo, p.id_sala,
-           s.titolo AS spettacolo, sa.nome AS sala, c.nome AS cinema
-    FROM proiezione p
-    JOIN spettacolo s  ON p.id_spettacolo = s.id
-    JOIN sala sa       ON p.id_sala = sa.id
-    JOIN cinema c      ON sa.id_cinema = c.id
-    ORDER BY p.data_ora DESC
+$prenotazioni = $pdo->query("
+    SELECT pr.id, pr.data_operazione, pr.numero_biglietti, pr.costo,
+           CONCAT(cl.nome,' ',cl.cognome) AS cliente,
+           s.titolo AS spettacolo, p.data_ora
+    FROM prenotazione pr
+    JOIN cliente cl ON pr.id_cliente = cl.id
+    JOIN proiezione p ON pr.id_proiezione = p.id
+    JOIN spettacolo s ON p.id_spettacolo = s.id
+    ORDER BY pr.data_operazione DESC
 ")->fetchAll(PDO::FETCH_ASSOC);
 
-$spettacoli = $pdo->query("SELECT id, titolo FROM spettacolo ORDER BY titolo")->fetchAll(PDO::FETCH_ASSOC);
-$sale       = $pdo->query("SELECT sa.id, CONCAT(c.nome,' — ',sa.nome) AS label FROM sala sa JOIN cinema c ON sa.id_cinema=c.id ORDER BY c.nome,sa.nome")->fetchAll(PDO::FETCH_ASSOC);
+$clienti    = $pdo->query("SELECT id, CONCAT(nome,' ',cognome) AS nome_completo FROM cliente ORDER BY cognome")->fetchAll(PDO::FETCH_ASSOC);
+$proiezioni = $pdo->query("SELECT p.id, CONCAT(s.titolo,' — ',p.data_ora) AS label FROM proiezione p JOIN spettacolo s ON p.id_spettacolo=s.id ORDER BY p.data_ora DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 $righe = '';
-foreach ($proiezioni as $p) {
-  $data       = htmlspecialchars($p['data_ora']);
+foreach ($prenotazioni as $p) {
+  $cliente    = htmlspecialchars($p['cliente']);
   $spettacolo = htmlspecialchars($p['spettacolo']);
-  $sala       = htmlspecialchars($p['sala']);
-  $cinema     = htmlspecialchars($p['cinema']);
+  $dataOp     = htmlspecialchars($p['data_operazione'] ?? '—');
+  $dataProi   = htmlspecialchars($p['data_ora']);
+  $costo      = number_format($p['costo'], 2);
   $righe .= "
     <tr>
-        <td>{$p['id']}</td><td>{$data}</td><td>{$spettacolo}</td><td>{$sala}</td><td>{$cinema}</td>
-        <td>
-            <button class='btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editProiezioneModal'
-                data-id='{$p['id']}'
-                data-data='{$data}'
-                data-spettacolo='{$p['id_spettacolo']}'
-                data-sala='{$p['id_sala']}'>
-                <i class='bi bi-pencil'></i> Edit
-            </button>
-        </td>
+        <td>{$p['id']}</td>
+        <td>{$dataOp}</td>
+        <td>{$cliente}</td>
+        <td>{$spettacolo}</td>
+        <td>{$dataProi}</td>
+        <td>{$p['numero_biglietti']}</td>
+        <td>€{$costo}</td>
     </tr>";
 }
 
-$optSpettacoli = '<option value="" disabled>Seleziona...</option>';
-foreach ($spettacoli as $s) $optSpettacoli .= "<option value='{$s['id']}'>" . htmlspecialchars($s['titolo']) . "</option>";
+$optClienti = '<option value="" disabled>Seleziona...</option>';
+foreach ($clienti as $c) $optClienti .= "<option value='{$c['id']}'>" . htmlspecialchars($c['nome_completo']) . "</option>";
 
-$optSale = '<option value="" disabled>Seleziona...</option>';
-foreach ($sale as $s) $optSale .= "<option value='{$s['id']}'>" . htmlspecialchars($s['label']) . "</option>";
+$optProiezioni = '<option value="" disabled>Seleziona...</option>';
+foreach ($proiezioni as $p) $optProiezioni .= "<option value='{$p['id']}'>" . htmlspecialchars($p['label']) . "</option>";
 
-$title      = 'Proiezioni';
-$activePage = 'programmazione';
+$title      = 'Prenotazioni';
+$activePage = 'biglietti';
 
 $body = "
 <!-- MODAL ADD -->
-<div class='modal fade' id='addProiezioneModal' tabindex='-1'>
+<div class='modal fade' id='addPrenotazioneModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
-    <div class='modal-header bg-danger text-white border-0'><h5 class='modal-title fw-bold'><i class='bi bi-plus-circle me-2'></i>Aggiungi Proiezione</h5><button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/proiezione_handler.php' id='addProiezioneForm'><input type='hidden' name='action' value='add'>
-      <div class='row g-3'>
-        <div class='col-12'><label class='form-label text-white'>Data e Ora</label><input type='datetime-local' class='form-control' name='data_ora' required></div>
-        <div class='col-md-6'><label class='form-label text-white'>Spettacolo</label><select class='form-select' name='id_spettacolo' required>$optSpettacoli</select></div>
-        <div class='col-md-6'><label class='form-label text-white'>Sala</label><select class='form-select' name='id_sala' required>$optSale</select></div>
-      </div>
-    </form></div>
-    <div class='modal-footer bg-dark border-danger'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='addProiezioneForm' class='btn btn-danger fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
+    <div class='modal-header bg-danger text-white border-0'>
+      <h5 class='modal-title fw-bold'><i class='bi bi-plus-circle me-2'></i>Aggiungi Prenotazione</h5>
+      <button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button>
+    </div>
+    <div class='modal-body p-4'>
+      <form method='POST' action='../Handler/PrenotazioniHandler.php' id='addPrenotazioneForm'>
+        <input type='hidden' name='action' value='add'>
+        <div class='row g-3'>
+          <div class='col-12'><label class='form-label text-white'>Cliente</label><select class='form-select' name='id_cliente' required>$optClienti</select></div>
+          <div class='col-12'><label class='form-label text-white'>Proiezione</label><select class='form-select' name='id_proiezione' required>$optProiezioni</select></div>
+          <div class='col-md-6'><label class='form-label text-white'>N° Biglietti</label><input type='number' class='form-control' name='numero_biglietti' required min='1'></div>
+          <div class='col-md-6'><label class='form-label text-white'>Costo Totale (€)</label><input type='number' step='0.01' class='form-control' name='costo'></div>
+          <div class='col-12'><label class='form-label text-white'>Data Operazione</label><input type='datetime-local' class='form-control' name='data_operazione'></div>
+        </div>
+      </form>
+    </div>
+    <div class='modal-footer bg-dark border-danger'>
+      <button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button>
+      <button type='submit' form='addPrenotazioneForm' class='btn btn-danger fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button>
+    </div>
   </div></div>
 </div>
-
-<!-- MODAL EDIT -->
-<div class='modal fade' id='editProiezioneModal' tabindex='-1'>
-  <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
-    <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Proiezione</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/proiezione_handler.php' id='editProiezioneForm'><input type='hidden' name='action' value='edit'><input type='hidden' name='id' id='editId'>
-      <div class='row g-3'>
-        <div class='col-12'><label class='form-label text-white'>Data e Ora</label><input type='datetime-local' class='form-control' name='data_ora' id='editData' required></div>
-        <div class='col-md-6'><label class='form-label text-white'>Spettacolo</label><select class='form-select' name='id_spettacolo' id='editSpettacolo'>$optSpettacoli</select></div>
-        <div class='col-md-6'><label class='form-label text-white'>Sala</label><select class='form-select' name='id_sala' id='editSala'>$optSale</select></div>
-      </div>
-    </form></div>
-    <div class='modal-footer bg-dark border-warning'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='editProiezioneForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
-  </div></div>
-</div>
-
-
 
 <div class='container-fluid text-white p-4'>
     <div class='d-flex justify-content-between align-items-center mb-4'>
-        <h2 class='mb-0'>Proiezioni</h2>
-        <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#addProiezioneModal'><i class='bi bi-plus-circle me-1'></i>Aggiungi Proiezione</button>
+        <h2 class='mb-0'>Prenotazioni</h2>
+        <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#addPrenotazioneModal'>
+            <i class='bi bi-plus-circle me-1'></i>Aggiungi Prenotazione
+        </button>
     </div>
     <div class='table-responsive'>
-      <table class='table table-striped table-dark' id='proiezioniTable'>
-        <thead><tr><th>ID</th><th>Data/Ora</th><th>Spettacolo</th><th>Sala</th><th>Cinema</th><th>Azioni</th></tr></thead>
+      <table class='table table-striped table-dark' id='prenotazioniTable'>
+        <thead>
+          <tr>
+            <th>ID</th><th>Data Op.</th><th>Cliente</th><th>Spettacolo</th><th>Proiezione</th><th>Biglietti</th><th>Costo</th>
+          </tr>
+        </thead>
         <tbody>$righe</tbody>
       </table>
     </div>
 </div>
-
 ";
 
 $template = file_get_contents("../inc/admin_page.inc.php");

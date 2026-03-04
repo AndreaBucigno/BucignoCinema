@@ -38,7 +38,7 @@ $body = "
         <button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button>
       </div>
       <div class='modal-body p-4'>
-        <form method='POST' action='handler/regista_handler.php' id='addRegistaForm'>
+        <form method='POST' action='../Handler/RegistaHandler.php' id='addRegistaForm'>
           <input type='hidden' name='action' value='add'>
           <div class='row g-3'>
             <div class='col-md-6'>
@@ -73,7 +73,7 @@ $body = "
         <button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button>
       </div>
       <div class='modal-body p-4'>
-        <form method='POST' action='handler/regista_handler.php' id='editRegistaForm'>
+        <form method='POST' action='../Handler/RegistaHandler.php' id='editRegistaForm'>
           <input type='hidden' name='action' value='edit'>
           <input type='hidden' name='id' id='editId'>
           <div class='row g-3'>
