@@ -35,7 +35,7 @@
                 <hr class="sidebar-divider" />
 
                 <hr class="sidebar-divider" />
-                <a href="./BucignoCinema/logout.php" class="nav-link text-danger"><i class="bi bi-box-arrow-left me-2"></i>Logout</a>
+                <a href="/BucignoCinema/logout.php" class="nav-link text-danger"><i class="bi bi-box-arrow-left me-2"></i>Logout</a>
             </nav>
         </div>
 
@@ -57,7 +57,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/script.js?v=<?php echo file_exists(__DIR__ . '/assets/js/script.js') ? filemtime(__DIR__ . '/assets/js/script.js') : 0; ?>"></script>
+    <script src="/BucignoCinema/assets/js/script.js?v=<?php echo file_exists(__DIR__ . '/assets/js/script.js') ? filemtime(__DIR__ . '/assets/js/script.js') : 0; ?>"></script>
 </body>
 
 </html>
