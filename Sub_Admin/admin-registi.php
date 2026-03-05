@@ -1,13 +1,18 @@
 <?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../login.php");
+  exit;
+}
 require_once __DIR__ . "/../config/db.php";
 
 $registi = $pdo->query("SELECT * FROM regista ORDER BY cognome")->fetchAll(PDO::FETCH_ASSOC);
 
 $righe = '';
 foreach ($registi as $r) {
-  $nome     = htmlspecialchars($r['nome']);
-  $cognome  = htmlspecialchars($r['cognome']);
-  $nascita  = htmlspecialchars($r['data_nascita'] ?? '—');
+  $nome    = htmlspecialchars($r['nome']);
+  $cognome = htmlspecialchars($r['cognome']);
+  $nascita = htmlspecialchars($r['data_nascita'] ?? '');
   $righe .= "
     <tr>
         <td>{$r['id']}</td>
@@ -17,10 +22,9 @@ foreach ($registi as $r) {
         <td>
             <button class='btn btn-sm btn-primary'
                 data-bs-toggle='modal' data-bs-target='#editRegistaModal'
-                data-id='{$r['id']}' data-nome='{$nome}' data-cognome='{$cognome}' data-nascita='{$nascita}'>
+                onclick=\"apriEditRegista('{$r['id']}', '{$nome}', '{$cognome}', '{$nascita}')\">
                 <i class='bi bi-pencil'></i> Edit
             </button>
-            
         </td>
     </tr>";
 }
@@ -41,18 +45,9 @@ $body = "
         <form method='POST' action='../Handler/RegistaHandler.php' id='addRegistaForm'>
           <input type='hidden' name='action' value='add'>
           <div class='row g-3'>
-            <div class='col-md-6'>
-              <label class='form-label text-white'>Nome</label>
-              <input type='text' class='form-control' name='nome' required placeholder='Nome'>
-            </div>
-            <div class='col-md-6'>
-              <label class='form-label text-white'>Cognome</label>
-              <input type='text' class='form-control' name='cognome' required placeholder='Cognome'>
-            </div>
-            <div class='col-12'>
-              <label class='form-label text-white'>Data di Nascita</label>
-              <input type='date' class='form-control' name='data_nascita'>
-            </div>
+            <div class='col-md-6'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' required placeholder='Nome'></div>
+            <div class='col-md-6'><label class='form-label text-white'>Cognome</label><input type='text' class='form-control' name='cognome' required placeholder='Cognome'></div>
+            <div class='col-12'><label class='form-label text-white'>Data di Nascita</label><input type='date' class='form-control' name='data_nascita'></div>
           </div>
         </form>
       </div>
@@ -77,18 +72,9 @@ $body = "
           <input type='hidden' name='action' value='edit'>
           <input type='hidden' name='id' id='editId'>
           <div class='row g-3'>
-            <div class='col-md-6'>
-              <label class='form-label text-white'>Nome</label>
-              <input type='text' class='form-control' name='nome' id='editNome' required>
-            </div>
-            <div class='col-md-6'>
-              <label class='form-label text-white'>Cognome</label>
-              <input type='text' class='form-control' name='cognome' id='editCognome' required>
-            </div>
-            <div class='col-12'>
-              <label class='form-label text-white'>Data di Nascita</label>
-              <input type='date' class='form-control' name='data_nascita' id='editNascita'>
-            </div>
+            <div class='col-md-6'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' id='editNome' required></div>
+            <div class='col-md-6'><label class='form-label text-white'>Cognome</label><input type='text' class='form-control' name='cognome' id='editCognome' required></div>
+            <div class='col-12'><label class='form-label text-white'>Data di Nascita</label><input type='date' class='form-control' name='data_nascita' id='editNascita'></div>
           </div>
         </form>
       </div>
@@ -99,8 +85,6 @@ $body = "
     </div>
   </div>
 </div>
-
-
 
 <div class='container-fluid text-white p-4'>
     <div class='d-flex justify-content-between align-items-center mb-4'>
@@ -118,7 +102,12 @@ $body = "
 </div>
 
 <script>
-
+function apriEditRegista(id, nome, cognome, nascita) {
+    document.getElementById('editId').value      = id;
+    document.getElementById('editNome').value    = nome;
+    document.getElementById('editCognome').value = cognome;
+    document.getElementById('editNascita').value = nascita;
+}
 </script>
 ";
 
@@ -126,7 +115,7 @@ $template = file_get_contents("../inc/admin_page.inc.php");
 $template = str_replace("{{title}}",      $title,                             $template);
 $template = str_replace("{{body}}",       $body,                              $template);
 $template = str_replace("{{admin_name}}", $_SESSION['admin_name'] ?? 'Admin', $template);
-$voci = ['dashboard', 'film', 'programmazione', 'biglietti', 'utenti', 'statistiche', 'impostazioni', 'registi'];
+$voci = ['dashboard', 'film', 'programmazione', 'biglietti', 'utenti', 'statistiche', 'impostazioni', 'registi', 'case', 'cinema'];
 foreach ($voci as $voce) {
   $template = str_replace("{{active_$voce}}", $activePage === $voce ? 'active' : '', $template);
 }

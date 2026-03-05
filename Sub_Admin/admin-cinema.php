@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../login.php");
+  exit;
+}
 require_once __DIR__ . "/../config/db.php";
 
 $cinema = $pdo->query("SELECT * FROM cinema ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -6,35 +11,35 @@ $sale   = $pdo->query("SELECT s.*, c.nome AS nome_cinema FROM sala s JOIN cinema
 
 $righeCinema = '';
 foreach ($cinema as $c) {
-  $nome     = htmlspecialchars($c['nome']);
-  $ind      = htmlspecialchars($c['indirizzo'] ?? '—');
-  $citta    = htmlspecialchars($c['citta'] ?? '—');
+  $nome  = htmlspecialchars($c['nome']);
+  $ind   = htmlspecialchars($c['indirizzo'] ?? '');
+  $citta = htmlspecialchars($c['citta'] ?? '');
   $righeCinema .= "
     <tr>
         <td>{$c['id']}</td><td>{$nome}</td><td>{$ind}</td><td>{$citta}</td>
         <td>
-            <button class='btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editCinemaModal'
-                data-id='{$c['id']}' data-nome='{$nome}' data-indirizzo='{$ind}' data-citta='{$citta}'>
+            <button class='btn btn-sm btn-primary'
+                data-bs-toggle='modal' data-bs-target='#editCinemaModal'
+                onclick=\"apriEditCinema('{$c['id']}', '{$nome}', '{$ind}', '{$citta}')\">
                 <i class='bi bi-pencil'></i> Edit
             </button>
-            
         </td>
     </tr>";
 }
 
 $righeSale = '';
 foreach ($sale as $s) {
-  $nome       = htmlspecialchars($s['nome'] ?? '');
-  $cinema_n   = htmlspecialchars($s['nome_cinema']);
+  $nome     = htmlspecialchars($s['nome'] ?? '');
+  $cinema_n = htmlspecialchars($s['nome_cinema']);
   $righeSale .= "
     <tr>
         <td>{$s['id']}</td><td>{$nome}</td><td>{$s['capienza']}</td><td>{$cinema_n}</td>
         <td>
-            <button class='btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editSalaModal'
-                data-id='{$s['id']}' data-nome='{$nome}' data-capienza='{$s['capienza']}' data-cinema='{$s['id_cinema']}'>
+            <button class='btn btn-sm btn-primary'
+                data-bs-toggle='modal' data-bs-target='#editSalaModal'
+                onclick=\"apriEditSala('{$s['id']}', '{$nome}', '{$s['capienza']}', '{$s['id_cinema']}')\">
                 <i class='bi bi-pencil'></i> Edit
             </button>
-            
         </td>
     </tr>";
 }
@@ -78,13 +83,11 @@ $body = "
   </div></div>
 </div>
 
-
-
 <!-- MODAL ADD SALA -->
 <div class='modal fade' id='addSalaModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
     <div class='modal-header bg-danger text-white border-0'><h5 class='modal-title fw-bold'><i class='bi bi-plus-circle me-2'></i>Aggiungi Sala</h5><button type='button' class='btn-close btn-close-white' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/cinema_handler.php' id='addSalaForm'><input type='hidden' name='action' value='add_sala'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/CinemaHandler.php' id='addSalaForm'><input type='hidden' name='action' value='add_sala'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Nome Sala</label><input type='text' class='form-control' name='nome' placeholder='Es. Sala 1'></div>
         <div class='col-md-6'><label class='form-label text-white'>Capienza</label><input type='number' class='form-control' name='capienza' required min='1'></div>
@@ -99,7 +102,7 @@ $body = "
 <div class='modal fade' id='editSalaModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
     <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Sala</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
-    <div class='modal-body p-4'><form method='POST' action='handler/cinema_handler.php' id='editSalaForm'><input type='hidden' name='action' value='edit_sala'><input type='hidden' name='id' id='editSalaId'>
+    <div class='modal-body p-4'><form method='POST' action='../Handler/CinemaHandler.php' id='editSalaForm'><input type='hidden' name='action' value='edit_sala'><input type='hidden' name='id' id='editSalaId'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Nome Sala</label><input type='text' class='form-control' name='nome' id='editSalaNome'></div>
         <div class='col-md-6'><label class='form-label text-white'>Capienza</label><input type='number' class='form-control' name='capienza' id='editSalaCapienza' required min='1'></div>
@@ -110,11 +113,7 @@ $body = "
   </div></div>
 </div>
 
-
-
 <div class='container-fluid text-white p-4'>
-
-    <!-- CINEMA -->
     <div class='d-flex justify-content-between align-items-center mb-4'>
         <h2 class='mb-0'>Cinema</h2>
         <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#addCinemaModal'><i class='bi bi-plus-circle me-1'></i>Aggiungi Cinema</button>
@@ -126,7 +125,6 @@ $body = "
       </table>
     </div>
 
-    <!-- SALE -->
     <div class='d-flex justify-content-between align-items-center mb-4'>
         <h2 class='mb-0'>Sale</h2>
         <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#addSalaModal'><i class='bi bi-plus-circle me-1'></i>Aggiungi Sala</button>
@@ -137,9 +135,22 @@ $body = "
         <tbody>$righeSale</tbody>
       </table>
     </div>
-
 </div>
 
+<script>
+function apriEditCinema(id, nome, indirizzo, citta) {
+    document.getElementById('editCinemaId').value    = id;
+    document.getElementById('editCinemaNome').value  = nome;
+    document.getElementById('editCinemaInd').value   = indirizzo;
+    document.getElementById('editCinemaCitta').value = citta;
+}
+function apriEditSala(id, nome, capienza, idCinema) {
+    document.getElementById('editSalaId').value       = id;
+    document.getElementById('editSalaNome').value     = nome;
+    document.getElementById('editSalaCapienza').value = capienza;
+    document.getElementById('editSalaCinema').value   = idCinema;
+}
+</script>
 ";
 
 $template = file_get_contents("../inc/admin_page.inc.php");

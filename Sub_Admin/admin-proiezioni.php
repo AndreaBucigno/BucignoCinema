@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../login.php");
+  exit;
+}
 require_once __DIR__ . "/../config/db.php";
 
 $proiezioni = $pdo->query("
@@ -24,11 +29,11 @@ foreach ($proiezioni as $p) {
     <tr>
         <td>{$p['id']}</td><td>{$data}</td><td>{$spettacolo}</td><td>{$sala}</td><td>{$cinema}</td>
         <td>
-            <button class='btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editProiezioneModal'
-                data-id='{$p['id']}' data-data='{$data}' data-spettacolo='{$p['id_spettacolo']}' data-sala='{$p['id_sala']}'>
+            <button class='btn btn-sm btn-primary'
+                data-bs-toggle='modal' data-bs-target='#editProiezioneModal'
+                onclick=\"apriEditProiezione('{$p['id']}', '{$data}', '{$p['id_spettacolo']}', '{$p['id_sala']}')\">
                 <i class='bi bi-pencil'></i> Edit
             </button>
-            
         </td>
     </tr>";
 }
@@ -73,8 +78,6 @@ $body = "
   </div></div>
 </div>
 
-
-
 <div class='container-fluid text-white p-4'>
     <div class='d-flex justify-content-between align-items-center mb-4'>
         <h2 class='mb-0'>Proiezioni</h2>
@@ -87,6 +90,15 @@ $body = "
       </table>
     </div>
 </div>
+
+<script>
+function apriEditProiezione(id, data, idSpettacolo, idSala) {
+    document.getElementById('editId').value         = id;
+    document.getElementById('editData').value       = data.replace(' ', 'T');
+    document.getElementById('editSpettacolo').value = idSpettacolo;
+    document.getElementById('editSala').value       = idSala;
+}
+</script>
 ";
 
 $template = file_get_contents("../inc/admin_page.inc.php");

@@ -1,18 +1,32 @@
 <?php
 require_once __DIR__ . "/../config/db.php";
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../login.php");
+  exit;
+}
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../login.php");
+  exit;
+}
 
 $prenotazioni = $pdo->query("
     SELECT pr.id, pr.data_operazione, pr.numero_biglietti, pr.costo,
-           CONCAT(cl.nome,' ',cl.cognome) AS cliente,
+           CONCAT(u.nome,' ',u.cognome) AS cliente,
            s.titolo AS spettacolo, p.data_ora
     FROM prenotazione pr
-    JOIN cliente cl ON pr.id_cliente = cl.id
+    JOIN utenti u ON pr.id_cliente = u.id
     JOIN proiezione p ON pr.id_proiezione = p.id
     JOIN spettacolo s ON p.id_spettacolo = s.id
     ORDER BY pr.data_operazione DESC
 ")->fetchAll(PDO::FETCH_ASSOC);
 
-$clienti    = $pdo->query("SELECT id, CONCAT(nome,' ',cognome) AS nome_completo FROM cliente ORDER BY cognome")->fetchAll(PDO::FETCH_ASSOC);
+$clienti = $pdo->query("
+    SELECT id, CONCAT(nome,' ',cognome) AS nome_completo 
+    FROM utenti 
+    WHERE ruolo = 'user'
+    ORDER BY cognome
+")->fetchAll(PDO::FETCH_ASSOC);
 $proiezioni = $pdo->query("SELECT p.id, CONCAT(s.titolo,' — ',p.data_ora) AS label FROM proiezione p JOIN spettacolo s ON p.id_spettacolo=s.id ORDER BY p.data_ora DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 $righe = '';

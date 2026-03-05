@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../login.php");
+  exit;
+}
 require_once __DIR__ . "/../config/db.php";
 
 $case = $pdo->query("SELECT * FROM casaproduttrice ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -6,7 +11,7 @@ $case = $pdo->query("SELECT * FROM casaproduttrice ORDER BY nome")->fetchAll(PDO
 $righe = '';
 foreach ($case as $c) {
   $nome = htmlspecialchars($c['nome'] ?? '');
-  $sede = htmlspecialchars($c['sede'] ?? '—');
+  $sede = htmlspecialchars($c['sede'] ?? '');
   $righe .= "
     <tr>
         <td>{$c['id']}</td>
@@ -15,7 +20,7 @@ foreach ($case as $c) {
         <td>
             <button class='btn btn-sm btn-primary'
                 data-bs-toggle='modal' data-bs-target='#editCasaModal'
-                data-id='{$c['id']}' data-nome='{$nome}' data-sede='{$sede}'>
+                onclick=\"apriEditCasa('{$c['id']}', '{$nome}', '{$sede}')\">
                 <i class='bi bi-pencil'></i> Edit
             </button>
         </td>
@@ -77,8 +82,6 @@ $body = "
   </div>
 </div>
 
-
-
 <div class='container-fluid text-white p-4'>
     <div class='d-flex justify-content-between align-items-center mb-4'>
         <h2 class='mb-0'>Case Produttrici</h2>
@@ -92,13 +95,20 @@ $body = "
     </div>
 </div>
 
+<script>
+function apriEditCasa(id, nome, sede) {
+    document.getElementById('editId').value   = id;
+    document.getElementById('editNome').value = nome;
+    document.getElementById('editSede').value = sede;
+}
+</script>
 ";
 
 $template = file_get_contents("../inc/admin_page.inc.php");
 $template = str_replace("{{title}}",      $title,                             $template);
 $template = str_replace("{{body}}",       $body,                              $template);
 $template = str_replace("{{admin_name}}", $_SESSION['admin_name'] ?? 'Admin', $template);
-$voci = ['dashboard', 'film', 'programmazione', 'biglietti', 'utenti', 'statistiche', 'impostazioni', 'registi', 'case'];
+$voci = ['dashboard', 'film', 'programmazione', 'biglietti', 'utenti', 'statistiche', 'impostazioni', 'registi', 'case', 'cinema'];
 foreach ($voci as $voce) {
   $template = str_replace("{{active_$voce}}", $activePage === $voce ? 'active' : '', $template);
 }

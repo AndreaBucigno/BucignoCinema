@@ -15,7 +15,7 @@
   color: #adb5bd;
   padding: 10px 20px;
   border-radius: 0;
-  transition: background .2s, color .2s;
+  transition: background-color .2s, color .2s;
 }
 
 #sidebar .nav-link:hover,
