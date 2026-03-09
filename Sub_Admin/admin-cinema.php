@@ -70,8 +70,8 @@ $body = "
 
 <!-- MODAL EDIT CINEMA -->
 <div class='modal fade' id='editCinemaModal' tabindex='-1'>
-  <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
-    <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Cinema</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
+  <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
+    <div class='modal-header bg-danger text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Cinema</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
     <div class='modal-body p-4'><form method='POST' action='../Handler/CinemaHandler.php' id='editCinemaForm'><input type='hidden' name='action' value='edit_cinema'><input type='hidden' name='id' id='editCinemaId'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Nome</label><input type='text' class='form-control' name='nome' id='editCinemaNome' required></div>
@@ -79,7 +79,7 @@ $body = "
         <div class='col-md-4'><label class='form-label text-white'>Città</label><input type='text' class='form-control' name='citta' id='editCinemaCitta'></div>
       </div>
     </form></div>
-    <div class='modal-footer bg-dark border-warning'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='editCinemaForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
+    <div class='modal-footer bg-dark border-danger'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='editCinemaForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
   </div></div>
 </div>
 
@@ -100,8 +100,8 @@ $body = "
 
 <!-- MODAL EDIT SALA -->
 <div class='modal fade' id='editSalaModal' tabindex='-1'>
-  <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
-    <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Sala</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
+  <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
+    <div class='modal-header bg-danger text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Sala</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
     <div class='modal-body p-4'><form method='POST' action='../Handler/CinemaHandler.php' id='editSalaForm'><input type='hidden' name='action' value='edit_sala'><input type='hidden' name='id' id='editSalaId'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Nome Sala</label><input type='text' class='form-control' name='nome' id='editSalaNome'></div>
@@ -109,7 +109,7 @@ $body = "
         <div class='col-md-6'><label class='form-label text-white'>Cinema</label><select class='form-select' name='id_cinema' id='editSalaCinema'>$optCinema</select></div>
       </div>
     </form></div>
-    <div class='modal-footer bg-dark border-warning'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='editSalaForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
+    <div class='modal-footer bg-dark border-danger'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='editSalaForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
   </div></div>
 </div>
 

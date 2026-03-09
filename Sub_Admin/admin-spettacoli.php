@@ -95,8 +95,8 @@ $body = "
 <!-- MODAL EDIT -->
 <div class='modal fade' id='editSpettacoloModal' tabindex='-1'>
   <div class='modal-dialog modal-lg'>
-    <div class='modal-content bg-dark border-warning'>
-      <div class='modal-header bg-warning text-dark border-0'>
+    <div class='modal-content bg-dark border-danger'>
+      <div class='modal-header bg-danger text-dark border-0'>
         <h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Spettacolo</h5>
         <button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button>
       </div>
@@ -113,7 +113,7 @@ $body = "
           </div>
         </form>
       </div>
-      <div class='modal-footer bg-dark border-warning'>
+      <div class='modal-footer bg-dark border-danger'>
         <button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button>
         <button type='submit' form='editSpettacoloForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva Modifiche</button>
       </div>

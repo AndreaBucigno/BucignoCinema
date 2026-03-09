@@ -1,9 +1,150 @@
+/*INDEX.PHP*/
+/* ── PALETTE ITTEN — schema monocromatico ── */
+:root {
+    --rosso:        #b02a37;
+    --rosso-scuro:  #6b1520;
+    --rosso-chiaro: #d9424f;
+    --nero:         #0d0d0d;
+    --grigio-1:     #141414;
+    --grigio-2:     #1e1e1e;
+    --grigio-3:     #2a2a2a;
+    --testo:        #e8e8e8;
+    --testo-muted:  #888888;
+    --accento:      #2a4a35;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background-color: var(--nero);
+    color: var(--testo);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+    background-color: var(--grigio-1) !important;
+    border-bottom: 2px solid var(--rosso);
+}
+.navbar-brand {
+    color: var(--testo) !important;
+    letter-spacing: 1px;
+}
+.btn-login {
+    border: 1px solid var(--rosso);
+    color: var(--testo);
+    background: transparent;
+    transition: all 0.2s;
+}
+.btn-login:hover {
+    background-color: var(--rosso);
+    color: white;
+}
+
+/* ── CAROSELLO ── */
+.carousel-slide {
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slide-1 { background-color: #1a1a1a; }
+.slide-2 { background-color: var(--rosso-scuro); }
+.slide-3 { background-color: #1a1a1a; }
+
+.slide-titolo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: white;
+    text-transform: uppercase;
+}
+.slide-titolo span {
+    color: var(--rosso-chiaro);
+}
+.carousel-caption {
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+    padding: 16px 24px;
+    bottom: 30px;
+}
+
+/* ── RECENSIONI ── */
+.sezione-recensioni {
+    background-color: #2e2e2e;
+    padding: 60px 0;
+    border-top: 3px solid var(--rosso);
+    border-bottom: 3px solid var(--rosso);
+}
+.sezione-titolo {
+    color: var(--testo);
+    font-weight: 700;
+    border-left: 4px solid var(--rosso);
+    padding-left: 16px;
+    margin-bottom: 32px;
+}
+.recensione-card {
+    background-color: #3a3a3a;
+    border: none;
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 620px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.recensione-card p {
+    color: var(--testo);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+.recensione-card .fw-bold {
+    color: var(--testo);
+}
+.stelle { color: var(--rosso-chiaro); }
+
+#carouselRecensioni .carousel-control-prev-icon,
+#carouselRecensioni .carousel-control-next-icon {
+    filter: none;
+}
+
+/* ── INFO ── */
+.sezione-info {
+    background-color: var(--grigio-1);
+    padding: 60px 0;
+    border-top: 3px solid var(--rosso);
+}
+.info-icona {
+    color: var(--rosso);
+    font-size: 2.5rem;
+}
+.info-titolo {
+    color: var(--testo);
+    font-weight: 700;
+    margin-top: 12px;
+}
+.info-testo {
+    color: var(--testo-muted);
+    font-size: 0.9rem;
+}
+
+/* ── FOOTER ── */
+footer {
+    background-color: var(--grigio-1);
+    border-top: 2px solid var(--rosso);
+    padding: 20px;
+    text-align: center;
+    color: var(--testo-muted);
+    font-size: 0.85rem;
+}
+
 /* ── SIDEBAR ── */
 #sidebar {
   width: 250px;
   min-height: 100vh;
   background-color: #212529;
   flex-shrink: 0;
+  border-right: 2px solid #b02a37;
 }
 
 #sidebar .sidebar-brand {
@@ -15,6 +156,8 @@
   color: #adb5bd;
   padding: 10px 20px;
   border-radius: 0;
+  display: block;
+  width: 100%;
   transition: background-color .2s, color .2s;
 }
 
@@ -44,7 +187,7 @@
 /* ── TOPBAR ── */
 #topbar {
   background-color: #2b2b2b;
-  border-bottom: 1px solid #495057;
+  border-bottom: 2px solid #b02a37;
   padding: 12px 24px;
 }
 
@@ -53,4 +196,134 @@
   background-color: #2b3035;
   border-radius: 0.5rem;
   padding: 24px;
+}
+
+/* ── TABELLE ── */
+.table-dark thead tr {
+  border-bottom: 2px solid #b02a37;
+}
+
+.table-dark thead th {
+  color: #d9424f;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+/* ── BOTTONI ── */
+.btn-danger {
+  background-color: #b02a37 !important;
+  border-color: #b02a37 !important;
+}
+.btn-danger:hover {
+  background-color: #6b1520 !important;
+  border-color: #6b1520 !important;
+}
+
+.btn-warning {
+  background-color: #d9424f !important;
+  border-color: #d9424f !important;
+  color: white !important;
+}
+.btn-warning:hover {
+  background-color: #b02a37 !important;
+  border-color: #b02a37 !important;
+}
+
+.btn-primary {
+  background-color: #2b3035 !important;
+  border-color: #b02a37 !important;
+  color: #e8e8e8 !important;
+}
+.btn-primary:hover {
+  background-color: #b02a37 !important;
+  border-color: #b02a37 !important;
+  color: white !important;
+}
+
+.btn-outline-secondary {
+  border-color: #495057 !important;
+  color: #adb5bd !important;
+}
+.btn-outline-secondary:hover {
+  background-color: #495057 !important;
+  color: white !important;
+}
+
+/* ── MODALI ── */
+.modal .form-control,
+.modal .form-select {
+  background-color: #3a3f44;
+  border: 1px solid #495057;
+  color: #e8e8e8;
+}
+.modal .form-control:focus,
+.modal .form-select:focus {
+  background-color: #3a3f44;
+  border-color: #b02a37;
+  color: #e8e8e8;
+  box-shadow: 0 0 0 2px rgba(176,42,55,0.3);
+}
+/* ── FORM CONTROLS ── */
+.form-control,
+.form-select {
+  background-color: var(--grigio-3) !important;
+  border: 1px solid #444 !important;
+  color: var(--testo) !important;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--rosso) !important;
+  box-shadow: 0 0 0 2px rgba(176,42,55,0.3) !important;
+}
+.form-control::placeholder {
+  color: var(--testo-muted) !important;
+}
+.form-label {
+  color: var(--testo) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ── BOTTONI ── */
+.btn-danger {
+  background-color: var(--rosso) !important;
+  border-color: var(--rosso) !important;
+}
+.btn-danger:hover {
+  background-color: var(--rosso-chiaro) !important;
+  border-color: var(--rosso-chiaro) !important;
+}
+.btn-warning {
+  background-color: var(--rosso-scuro) !important;
+  border-color: var(--rosso-scuro) !important;
+  color: var(--testo) !important;
+}
+.btn-warning:hover {
+  background-color: var(--rosso) !important;
+  border-color: var(--rosso) !important;
+  color: white !important;
+}
+.btn-primary {
+  background-color: var(--grigio-3) !important;
+  border-color: var(--rosso) !important;
+  color: var(--testo) !important;
+}
+.btn-primary:hover {
+  background-color: var(--rosso) !important;
+  color: white !important;
+}
+
+/* ── CONTENT CONTAINER ── */
+.content-box {
+  background-color: var(--grigio-2);
+  border-radius: 0;
+  padding: 24px;
+}
+
+/* ── ALERT ── */
+.alert-danger {
+  background-color: var(--rosso-scuro) !important;
+  border-color: var(--rosso) !important;
+  color: var(--testo) !important;
 }

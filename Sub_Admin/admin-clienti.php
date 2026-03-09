@@ -75,8 +75,8 @@ $body = "
 
 <!-- MODAL EDIT -->
 <div class='modal fade' id='editClienteModal' tabindex='-1'>
-  <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
-    <div class='modal-header bg-warning text-dark border-0'>
+  <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
+    <div class='modal-header bg-danger text-dark border-0'>
       <h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Cliente</h5>
       <button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button>
     </div>
@@ -92,7 +92,7 @@ $body = "
         </div>
       </form>
     </div>
-    <div class='modal-footer bg-dark border-warning'>
+    <div class='modal-footer bg-dark border-danger'>
       <button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button>
       <button type='submit' form='editClienteForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button>
     </div>

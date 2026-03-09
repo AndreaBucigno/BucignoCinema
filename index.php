@@ -1,32 +1,23 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BucignoCinema - Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
-
 <body>
-
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="bi bi-film me-2"></i>
+            <a class="navbar-brand fw-bold fs-5" href="#">
+                <i class="bi bi-film me-2" style="color:var(--rosso);"></i>
                 BucignoCinema
             </a>
-            <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#navbarMain">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <a href="login.php" class="btn btn-dark align-self-right ms-auto">
-                    <i class="bi bi-person-circle fs-5"></i>
-                </a>
-            </div>
+            <a href="login.php" class="btn btn-login ms-auto px-3">
+                <i class="bi bi-person-circle me-1"></i> Accedi
+            </a>
         </div>
     </nav>
 
@@ -39,32 +30,32 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div style="height:450px; background-color:#212529; display:flex; align-items:center; justify-content:center;">
-                    <h1 style="color:white; font-size:4rem; font-weight:bold;">#TORNA AL CINEMA</h1>
+                <div class="carousel-slide slide-1">
+                    <div class="slide-titolo">#<span>TORNA</span> AL CINEMA</div>
                 </div>
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Accedi per prenotare un biglietto presso una delle nostre sedi</h5>
-                    <a href="login.php" class="btn btn-danger">Accedi</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div style="height:450px; background-color:#b02a37; display:flex; align-items:center; justify-content:center;">
-                    <h1 style="color:white; font-size:4rem; font-weight:bold;">#TORNA AL CINEMA</h1>
-                </div>
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Nuova Stagione 2025</h5>
-                    <p>Tanti nuovi film ti aspettano ogni settimana.</p>
-                    <a href="#" class="btn btn-dark">Scopri la programmazione</a>
+                <div class="carousel-caption">
+                    <h5>Accedi e prenota il tuo posto</h5>
+                    <a href="login.php" class="btn btn-sm mt-1" style="background:var(--rosso); color:white;">Accedi ora</a>
                 </div>
             </div>
             <div class="carousel-item">
-                <div style="height:450px; background-color:#495057; display:flex; align-items:center; justify-content:center;">
-                    <h1 style="color:white; font-size:4rem; font-weight:bold;">#TORNA AL CINEMA</h1>
+                <div class="carousel-slide slide-2">
+                    <div class="slide-titolo">#<span>TORNA</span> AL CINEMA</div>
                 </div>
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption">
+                    <h5>Nuova Stagione 2026</h5>
+                    <p>Tanti nuovi film ogni settimana.</p>
+                    <a href="#" class="btn btn-sm mt-1" style="background:var(--rosso); color:white;">Scopri</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-slide slide-3">
+                    <div class="slide-titolo">#<span>TORNA</span> AL CINEMA</div>
+                </div>
+                <div class="carousel-caption">
                     <h5>Offerta Speciale</h5>
-                    <p>Ogni mercoledì biglietti a soli €5. Portaci tutta la famiglia!</p>
-                    <a href="#" class="btn btn-danger">Scopri di più</a>
+                    <p>Ogni mercoledì biglietti a soli €5.</p>
+                    <a href="#" class="btn btn-sm mt-1" style="background:var(--rosso); color:white;">Scopri di più</a>
                 </div>
             </div>
         </div>
@@ -75,124 +66,59 @@
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>
-    <!-- FINE CAROSELLO -->
-
-    <!-- SEZIONE FILM IN PROGRAMMAZIONE -->
-    <div class="container my-5">
-        <h2 class="fw-bold mb-4">Film in Programmazione</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="https://placehold.co/400x250/212529/ffffff?text=Film+1" class="card-img-top" alt="Film 1" />
-                    <div class="card-body">
-                        <h5 class="card-title">L'Ultimo Tramonto</h5>
-                        <p class="card-text text-muted">Un emozionante thriller ambientato tra le montagne della Norvegia. Azione, suspense e colpi di scena garantiti.</p>
-                        <span class="badge bg-danger me-1">Azione</span>
-                        <span class="badge bg-secondary">18+</span>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <small class="text-muted"><i class="bi bi-clock me-1"></i>2h 15min</small>
-                        <a href="#" class="btn btn-sm btn-danger">Prenota</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="https://placehold.co/400x250/b02a37/ffffff?text=Film+2" class="card-img-top" alt="Film 2" />
-                    <div class="card-body">
-                        <h5 class="card-title">Stelle Lontane</h5>
-                        <p class="card-text text-muted">Una storia d'amore e avventura tra le stelle. Un film che ti farà sognare e commuovere fino all'ultima scena.</p>
-                        <span class="badge bg-primary me-1">Romantico</span>
-                        <span class="badge bg-secondary">PG</span>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <small class="text-muted"><i class="bi bi-clock me-1"></i>1h 58min</small>
-                        <a href="#" class="btn btn-sm btn-danger">Prenota</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="https://placehold.co/400x250/495057/ffffff?text=Film+3" class="card-img-top" alt="Film 3" />
-                    <div class="card-body">
-                        <h5 class="card-title">Risate al Buio</h5>
-                        <p class="card-text text-muted">La commedia dell'anno! Tre amici improbabili si ritrovano coinvolti in una serie di disavventure esilaranti.</p>
-                        <span class="badge bg-success me-1">Commedia</span>
-                        <span class="badge bg-secondary">PG</span>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <small class="text-muted"><i class="bi bi-clock me-1"></i>1h 40min</small>
-                        <a href="#" class="btn btn-sm btn-danger">Prenota</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- RECENSIONI -->
-    <div class="bg-dark text-white py-5">
+    <div class="sezione-recensioni">
         <div class="container">
-            <h2 class="fw-bold mb-4 text-center">Cosa dicono i nostri clienti</h2>
+            <h2 class="sezione-titolo">Cosa dicono i nostri clienti</h2>
             <div id="carouselRecensioni" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="d-flex justify-content-center">
-                            <div class="card bg-secondary text-white p-4 shadow" style="max-width:600px; width:100%;">
-                                <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-person-circle fs-1 me-3 text-danger"></i>
-                                    <div>
-                                        <h6 class="mb-0 fw-bold">Marco Rossi</h6>
-                                        <small class="text-warning">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                        </small>
+                        <div class="recensione-card">
+                            <div class="d-flex align-items-center mb-3 gap-3">
+                                <i class="bi bi-person-circle fs-2" style="color:var(--rosso);"></i>
+                                <div>
+                                    <div class="fw-bold">Marco Rossi</div>
+                                    <div class="stelle">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
                                     </div>
                                 </div>
-                                <p class="mb-0">"Esperienza fantastica! Le sale sono modernissime e il suono è incredibile. Tornerò sicuramente!"</p>
                             </div>
+                            <p>"Esperienza fantastica! Le sale sono modernissime e il suono è incredibile. Tornerò sicuramente!"</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="d-flex justify-content-center">
-                            <div class="card bg-secondary text-white p-4 shadow" style="max-width:600px; width:100%;">
-                                <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-person-circle fs-1 me-3 text-danger"></i>
-                                    <div>
-                                        <h6 class="mb-0 fw-bold">Giulia Bianchi</h6>
-                                        <small class="text-warning">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                        </small>
+                        <div class="recensione-card">
+                            <div class="d-flex align-items-center mb-3 gap-3">
+                                <i class="bi bi-person-circle fs-2" style="color:var(--rosso);"></i>
+                                <div>
+                                    <div class="fw-bold">Giulia Bianchi</div>
+                                    <div class="stelle">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
                                     </div>
                                 </div>
-                                <p class="mb-0">"Personale gentilissimo e prezzi onesti. La sala IMAX è spettacolare, non delude mai!"</p>
                             </div>
+                            <p>"Personale gentilissimo e prezzi onesti. La sala IMAX è spettacolare, non delude mai!"</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="d-flex justify-content-center">
-                            <div class="card bg-secondary text-white p-4 shadow" style="max-width:600px; width:100%;">
-                                <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-person-circle fs-1 me-3 text-danger"></i>
-                                    <div>
-                                        <h6 class="mb-0 fw-bold">Luca Verdi</h6>
-                                        <small class="text-warning">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                        </small>
+                        <div class="recensione-card">
+                            <div class="d-flex align-items-center mb-3 gap-3">
+                                <i class="bi bi-person-circle fs-2" style="color:var(--rosso);"></i>
+                                <div>
+                                    <div class="fw-bold">Luca Verdi</div>
+                                    <div class="stelle">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
                                     </div>
                                 </div>
-                                <p class="mb-0">"Il miglior cinema di Perugia senza dubbio. Programmazione sempre aggiornata e poltrone comodissime!"</p>
                             </div>
+                            <p>"Il miglior cinema di Perugia. Programmazione aggiornata e poltrone comodissime!"</p>
                         </div>
                     </div>
                 </div>
@@ -206,33 +132,34 @@
         </div>
     </div>
 
-    <!-- SEZIONE INFO -->
-    <div class="bg-dark text-white py-5">
+    <!-- INFO -->
+    <div class="sezione-info">
         <div class="container">
             <div class="row text-center g-4">
                 <div class="col-md-4">
-                    <i class="bi bi-camera-reels display-4 text-danger"></i>
-                    <h4 class="mt-3">2 SEDI</h4>
-                    <p class="text-muted">Cinque sale moderne con schermo 4K e audio Dolby Atmos per un'esperienza unica.</p>
+                    <i class="bi bi-camera-reels info-icona"></i>
+                    <div class="info-titolo">2 Sedi</div>
+                    <p class="info-testo">Sale moderne con schermo 4K e audio Dolby Atmos.</p>
                 </div>
                 <div class="col-md-4">
-                    <i class="bi bi-cup-straw display-4 text-danger"></i>
-                    <h4 class="mt-3">Bar & Snack</h4>
+                    <i class="bi bi-cup-straw info-icona"></i>
+                    <div class="info-titolo">Bar & Snack</div>
+                    <p class="info-testo">Popcorn, bibite e tanto altro per il tuo film.</p>
                 </div>
                 <div class="col-md-4">
-                    <i class="bi bi-geo-alt display-4 text-danger"></i>
-                    <h4 class="mt-3">Perugia, Italia</h4>
+                    <i class="bi bi-geo-alt info-icona"></i>
+                    <div class="info-titolo">Perugia, Italia</div>
+                    <p class="info-testo">Due sedi comode nel cuore di Perugia.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-danger text-white text-center py-3">
-        <small>&copy; 2025 Bucigno Cinema — Tutti i diritti riservati</small>
+    <footer>
+        <small>&copy; 2026 BucignoCinema — Tutti i diritti riservati</small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

@@ -65,8 +65,8 @@ $body = "
 
 <!-- MODAL EDIT -->
 <div class='modal fade' id='editProiezioneModal' tabindex='-1'>
-  <div class='modal-dialog'><div class='modal-content bg-dark border-warning'>
-    <div class='modal-header bg-warning text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Proiezione</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
+  <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
+    <div class='modal-header bg-danger text-dark border-0'><h5 class='modal-title fw-bold'><i class='bi bi-pencil-fill me-2'></i>Modifica Proiezione</h5><button type='button' class='btn-close btn-close-dark' data-bs-dismiss='modal'></button></div>
     <div class='modal-body p-4'><form method='POST' action='../Handler/ProiezioneHandler.php' id='editProiezioneForm'><input type='hidden' name='action' value='edit'><input type='hidden' name='id' id='editId'>
       <div class='row g-3'>
         <div class='col-12'><label class='form-label text-white'>Data e Ora</label><input type='datetime-local' class='form-control' name='data_ora' id='editData' required></div>
@@ -74,7 +74,7 @@ $body = "
         <div class='col-md-6'><label class='form-label text-white'>Sala</label><select class='form-select' name='id_sala' id='editSala'>$optSale</select></div>
       </div>
     </form></div>
-    <div class='modal-footer bg-dark border-warning'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='editProiezioneForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
+    <div class='modal-footer bg-dark border-danger'><button type='button' class='btn btn-outline-secondary' data-bs-dismiss='modal'>Annulla</button><button type='submit' form='editProiezioneForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button></div>
   </div></div>
 </div>
 
