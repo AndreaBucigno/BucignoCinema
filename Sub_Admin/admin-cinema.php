@@ -6,8 +6,8 @@ if (!isset($_SESSION['admin_id'])) {
 }
 require_once __DIR__ . "/../config/db.php";
 
-$cinema = $pdo->query("SELECT * FROM cinema ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
-$sale   = $pdo->query("SELECT s.*, c.nome AS nome_cinema FROM sala s JOIN cinema c ON s.id_cinema = c.id ORDER BY c.nome, s.nome")->fetchAll(PDO::FETCH_ASSOC);
+$cinema = $pdo->query("SELECT * FROM cinema WHERE attivo = true ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
+$sale   = $pdo->query("SELECT s.*, c.nome AS nome_cinema FROM sala s INNER JOIN cinema c ON s.id_cinema = c.id  WHERE s.attivo=true AND c.attivo=true ORDER BY c.nome, s.nome")->fetchAll(PDO::FETCH_ASSOC);
 
 $righeCinema = '';
 foreach ($cinema as $c) {
@@ -24,6 +24,17 @@ foreach ($cinema as $c) {
                 <i class='bi bi-pencil'></i> Edit
             </button>
         </td>
+        <td>
+            <form method='POST' action='../Handler/CinemaHandler.php' style='display:inline'>
+                <input type='hidden' name='action' value='delete_cinema'>
+                <input type='hidden' name='id' value='{$c['id']}'>
+                <button type='submit' class='btn btn-sm btn-danger'
+                    onclick=\"return confirm('Sei sicuro di voler eliminare il cinema {$nome}?')\">
+                    <i class='bi bi-trash'></i> Elimina
+                </button>
+            </form>
+        </td>
+
     </tr>";
 }
 
@@ -40,6 +51,16 @@ foreach ($sale as $s) {
                 onclick=\"apriEditSala('{$s['id']}', '{$nome}', '{$s['capienza']}', '{$s['id_cinema']}')\">
                 <i class='bi bi-pencil'></i> Edit
             </button>
+        </td>
+        <td>
+            <form method='POST' action='../Handler/CinemaHandler.php' style='display:inline'>
+                <input type='hidden' name='action' value='delete_sala'>
+                <input type='hidden' name='id' value='{$s['id']}'>
+                <button type='submit' class='btn btn-sm btn-danger'
+                    onclick=\"return confirm('Sei sicuro di voler eliminare la sala {$nome}?')\">
+                    <i class='bi bi-trash'></i> Elimina
+                </button>
+            </form>
         </td>
     </tr>";
 }

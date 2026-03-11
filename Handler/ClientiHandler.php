@@ -40,7 +40,15 @@ switch ($_POST['action'] ?? '') {
             }
         }
         break;
-}
 
+
+    case 'delete_cliente':
+
+            $stmt = $pdo->prepare("UPDATE utenti SET attivo=:attivo WHERE id=:id");
+            $stmt->execute([':id' => $_POST['id'], ':attivo' => 'false']);
+            header("Location: ../Sub_Admin/admin-clienti.php");
+            break;
+
+}
 header("Location: ../Sub_Admin/admin-clienti.php");
 exit;

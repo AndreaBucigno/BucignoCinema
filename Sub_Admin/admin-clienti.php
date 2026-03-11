@@ -12,7 +12,7 @@ require_once __DIR__ . "/../config/db.php";
 $clienti = $pdo->query("
     SELECT * FROM utenti 
     WHERE ruolo = 'user' 
-    ORDER BY cognome
+    AND attivo = 'true' ORDER BY cognome  
 ")->fetchAll(PDO::FETCH_ASSOC);
 
 $righe = '';
@@ -35,6 +35,16 @@ foreach ($clienti as $c) {
                 onclick=\"apriEditCliente('{$c['id']}', '{$nome}', '{$cognome}', '{$email}', '{$nascita}')\">
                 <i class='bi bi-pencil'></i> Edit
             </button>
+        </td>
+        <td>
+            <form method='POST' action='../Handler/ClientiHandler.php' style='display:inline'>
+                <input type='hidden' name='action' value='delete_cliente'>
+                <input type='hidden' name='id' value='{$c['id']}'>
+                <button type='submit' class='btn btn-sm btn-danger'
+                    onclick=\"return confirm('Sei sicuro di voler eliminare il cliente {$nome}?')\">
+                    <i class='bi bi-trash'></i> Elimina
+                </button>
+            </form>
         </td>
     </tr>";
 }

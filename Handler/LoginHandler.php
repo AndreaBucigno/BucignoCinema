@@ -7,11 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if ($email && $password) {
-        $stmt = $pdo->prepare("SELECT * FROM utenti WHERE email = :email AND password = :password");
-        $stmt->execute([':email' => $email, ':password' => $password]);
+        // Cerca solo per email
+        $stmt = $pdo->prepare("SELECT * FROM utenti WHERE email = :email");
+        $stmt->execute([':email' => $email]);
         $utente = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($utente) {
+        // Verifica password con password_verify
+        if ($utente && password_verify($password, $utente['password'])) {
             $_SESSION['admin_id']   = $utente['id'];
             $_SESSION['admin_name'] = $utente['nome'];
             $_SESSION['admin_role'] = $utente['ruolo'];
