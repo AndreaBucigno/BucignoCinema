@@ -327,3 +327,13 @@ footer {
   border-color: var(--rosso) !important;
   color: var(--testo) !important;
 }
+
+/* ── USER NAVBAR ── */
+.navbar-nav .nav-link {
+    color: var(--testo-muted);
+    transition: color 0.2s;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--rosso) !important;
+}

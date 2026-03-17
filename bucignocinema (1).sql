@@ -1,20 +1,41 @@
 -- phpMyAdmin SQL Dump
--- Database: `bucignocinema`
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Creato il: Mar 17, 2026 alle 08:31
+-- Versione del server: 10.4.32-MariaDB
+-- Versione PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-SET NAMES utf8mb4;
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `bucignocinema`
+--
 
 -- --------------------------------------------------------
--- Tabella `casaproduttrice`
--- --------------------------------------------------------
+
+--
+-- Struttura della tabella `casaproduttrice`
+--
+
 CREATE TABLE `casaproduttrice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(100) DEFAULT NULL,
-  `sede` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `sede` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `casaproduttrice`
+--
 
 INSERT INTO `casaproduttrice` (`id`, `nome`, `sede`) VALUES
 (1, 'Warner Bros', 'Los Angeles, USA'),
@@ -24,28 +45,41 @@ INSERT INTO `casaproduttrice` (`id`, `nome`, `sede`) VALUES
 (5, 'Lucasfilm', 'San Francisco, USA');
 
 -- --------------------------------------------------------
--- Tabella `cinema`
--- --------------------------------------------------------
+
+--
+-- Struttura della tabella `cinema`
+--
+
 CREATE TABLE `cinema` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `indirizzo` varchar(150) DEFAULT NULL,
   `citta` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `attivo` enum('true','false') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `cinema` (`id`, `nome`, `indirizzo`, `citta`) VALUES
-(1, 'BucignoCinema Centro', 'Via Roma 14', 'Perugia'),
-(2, 'BucignoCinema Nord', 'Via Adriatica 88', 'Perugia');
+--
+-- Dump dei dati per la tabella `cinema`
+--
+
+INSERT INTO `cinema` (`id`, `nome`, `indirizzo`, `citta`, `attivo`) VALUES
+(1, 'BucignoCinema Centro', 'Via Roma 14', 'Perugia', 'true'),
+(2, 'BucignoCinema Nord', 'Via Adriatica 88', 'Perugia', 'true');
 
 -- --------------------------------------------------------
--- Tabella `parolachiave`
--- --------------------------------------------------------
+
+--
+-- Struttura della tabella `parolachiave`
+--
+
 CREATE TABLE `parolachiave` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parola` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL,
+  `parola` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `parolachiave`
+--
 
 INSERT INTO `parolachiave` (`id`, `parola`) VALUES
 (1, 'guerra'),
@@ -60,153 +94,52 @@ INSERT INTO `parolachiave` (`id`, `parola`) VALUES
 (10, 'bomba');
 
 -- --------------------------------------------------------
--- Tabella `utenti` (unione di utenti + cliente)
--- --------------------------------------------------------
-CREATE TABLE `utenti` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `cognome` varchar(50) DEFAULT NULL,
-  `data_nascita` date DEFAULT NULL,
-  `email` varchar(150) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `ruolo` enum('admin','user') NOT NULL DEFAULT 'user',
-  `created_at` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
+
+--
+-- Struttura della tabella `prenotazione`
+--
+
+CREATE TABLE `prenotazione` (
+  `id` int(11) NOT NULL,
+  `data_operazione` datetime DEFAULT NULL,
+  `numero_biglietti` int(11) NOT NULL,
+  `costo` decimal(6,2) DEFAULT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_proiezione` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `utenti` (`id`, `nome`, `cognome`, `data_nascita`, `email`, `password`, `ruolo`) VALUES
-(1, 'Admin', NULL, NULL, 'bucignoandrea@gmail.com', '0192023a7bbd73250516f069df18b500', 'admin'),
-(2, 'Marco', 'Rossi', '1990-04-15', 'marco.rossi@cinema.it', MD5('Password123'), 'user'),
-(3, 'Giulia', 'Bianchi', '1995-08-22', 'giulia.bianchi@cinema.it', MD5('Password123'), 'user'),
-(4, 'Luca', 'Verdi', '1988-12-01', 'luca.verdi@cinema.it', MD5('Password123'), 'user'),
-(5, 'Anna', 'Neri', '2000-03-10', 'anna.neri@cinema.it', MD5('Password123'), 'user'),
-(6, 'Paolo', 'Gialli', '1975-07-19', 'paolo.gialli@cinema.it', MD5('Password123'), 'user'),
-(7, 'Sara', 'Blu', '1993-11-05', 'sara.blu@cinema.it', MD5('Password123'), 'user'),
-(8, 'Matteo', 'Ferrari', '1998-02-28', 'matteo.ferrari@cinema.it', MD5('Password123'), 'user'),
-(9, 'Chiara', 'Romano', '1985-06-14', 'chiara.romano@cinema.it', MD5('Password123'), 'user');
+--
+-- Dump dei dati per la tabella `prenotazione`
+--
+
+INSERT INTO `prenotazione` (`id`, `data_operazione`, `numero_biglietti`, `costo`, `id_cliente`, `id_proiezione`) VALUES
+(1, '2026-03-01 10:00:00', 2, 16.00, 2, 1),
+(2, '2026-03-01 11:30:00', 1, 8.00, 3, 2),
+(3, '2026-03-02 09:00:00', 4, 32.00, 4, 3),
+(4, '2026-03-02 14:00:00', 2, 16.00, 5, 4),
+(5, '2026-03-03 16:00:00', 3, 24.00, 6, 5),
+(6, '2026-03-03 17:00:00', 1, 8.00, 7, 6),
+(7, '2026-03-04 10:00:00', 2, 16.00, 8, 7),
+(8, '2026-03-04 12:00:00', 5, 40.00, 9, 8),
+(9, '2026-03-04 15:00:00', 2, 16.00, 2, 9),
+(10, '2026-03-04 18:00:00', 3, 24.00, 4, 10);
 
 -- --------------------------------------------------------
--- Tabella `regista`
--- --------------------------------------------------------
-CREATE TABLE `regista` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) DEFAULT NULL,
-  `cognome` varchar(50) DEFAULT NULL,
-  `data_nascita` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `regista` (`id`, `nome`, `cognome`, `data_nascita`) VALUES
-(1, 'Christopher', 'Nolan', '1970-07-30'),
-(2, 'Quentin', 'Tarantino', '1963-03-27'),
-(3, 'Greta', 'Gerwig', '1983-08-04'),
-(4, 'Steven', 'Spielberg', '1946-12-18'),
-(5, 'Paolo', 'Sorrentino', '1970-05-31');
+--
+-- Struttura della tabella `proiezione`
+--
 
--- --------------------------------------------------------
--- Tabella `sala`
--- --------------------------------------------------------
-CREATE TABLE `sala` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) DEFAULT NULL,
-  `capienza` int(11) NOT NULL,
-  `id_cinema` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_cinema` (`id_cinema`),
-  CONSTRAINT `sala_ibfk_1` FOREIGN KEY (`id_cinema`) REFERENCES `cinema` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-INSERT INTO `sala` (`id`, `nome`, `capienza`, `id_cinema`) VALUES
-(1, 'Sala 1', 120, 1),
-(2, 'Sala 2', 80, 1),
-(3, 'Sala IMAX', 200, 1),
-(4, 'Sala A', 100, 2),
-(5, 'Sala B', 60, 2);
-
--- --------------------------------------------------------
--- Tabella `tematica`
--- --------------------------------------------------------
-CREATE TABLE `tematica` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) DEFAULT NULL,
-  `descrizione` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-INSERT INTO `tematica` (`id`, `nome`, `descrizione`) VALUES
-(1, 'Azione', 'Film ricchi di adrenalina, inseguimenti e combattimenti'),
-(2, 'Commedia', 'Film leggeri pensati per far ridere il pubblico'),
-(3, 'Dramma', 'Storie intense con forte impatto emotivo'),
-(4, 'Horror', 'Film pensati per spaventare e creare tensione'),
-(5, 'Romantico', 'Storie d amore e sentimenti'),
-(6, 'Fantascienza', 'Ambientazioni futuristiche e tecnologia avanzata');
-
--- --------------------------------------------------------
--- Tabella `spettacolo`
--- --------------------------------------------------------
-CREATE TABLE `spettacolo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `titolo` varchar(100) NOT NULL,
-  `trama` text DEFAULT NULL,
-  `id_tematica` int(11) DEFAULT NULL,
-  `id_regista` int(11) DEFAULT NULL,
-  `id_casa_produttrice` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_tematica` (`id_tematica`),
-  KEY `id_regista` (`id_regista`),
-  KEY `id_casa_produttrice` (`id_casa_produttrice`),
-  CONSTRAINT `spettacolo_ibfk_1` FOREIGN KEY (`id_tematica`) REFERENCES `tematica` (`id`),
-  CONSTRAINT `spettacolo_ibfk_2` FOREIGN KEY (`id_regista`) REFERENCES `regista` (`id`),
-  CONSTRAINT `spettacolo_ibfk_3` FOREIGN KEY (`id_casa_produttrice`) REFERENCES `casaproduttrice` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-INSERT INTO `spettacolo` (`id`, `titolo`, `trama`, `id_tematica`, `id_regista`, `id_casa_produttrice`) VALUES
-(1, 'Oppenheimer', 'La storia del padre della bomba atomica e del Progetto Manhattan.', 3, 1, 1),
-(2, 'C era una volta a Hollywood', 'Los Angeles 1969: un attore western e il suo stuntman cercano gloria.', 2, 2, 2),
-(3, 'Barbie', 'Barbie lascia Barbieland e scopre il mondo reale.', 2, 3, 1),
-(4, 'Schindler s List', 'Un industriale tedesco salva oltre mille ebrei durante l Olocausto.', 3, 4, 2),
-(5, 'La Grande Bellezza', 'Un giornalista romano riflette sulla sua vita tra feste e solitudine.', 3, 5, 3),
-(6, 'Tenet', 'Un agente segreto impara a manipolare il flusso del tempo per salvare il mondo.', 6, 1, 4),
-(7, 'Inception', 'Un ladro che ruba segreti attraverso i sogni viene incaricato di piantare un idea.', 6, 1, 1),
-(8, 'Django Unchained', 'Uno schiavo liberato cerca di salvare sua moglie con l aiuto di un cacciatore di taglie.', 1, 2, 4);
-
--- --------------------------------------------------------
--- Tabella `spettacoloparola`
--- --------------------------------------------------------
-CREATE TABLE `spettacoloparola` (
-  `id_spettacolo` int(11) NOT NULL,
-  `id_parola` int(11) NOT NULL,
-  PRIMARY KEY (`id_spettacolo`, `id_parola`),
-  KEY `id_parola` (`id_parola`),
-  CONSTRAINT `spettacoloparola_ibfk_1` FOREIGN KEY (`id_spettacolo`) REFERENCES `spettacolo` (`id`),
-  CONSTRAINT `spettacoloparola_ibfk_2` FOREIGN KEY (`id_parola`) REFERENCES `parolachiave` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-INSERT INTO `spettacoloparola` (`id_spettacolo`, `id_parola`) VALUES
-(1, 1),(1, 2),(1, 10),
-(2, 3),(2, 9),
-(3, 3),(3, 7),
-(4, 1),(4, 2),
-(5, 7),(5, 8),
-(6, 4),(6, 6),
-(7, 4),(7, 6),
-(8, 1),(8, 5);
-
--- --------------------------------------------------------
--- Tabella `proiezione`
--- --------------------------------------------------------
 CREATE TABLE `proiezione` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `data_ora` datetime NOT NULL,
   `id_spettacolo` int(11) NOT NULL,
-  `id_sala` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_spettacolo` (`id_spettacolo`),
-  KEY `id_sala` (`id_sala`),
-  CONSTRAINT `proiezione_ibfk_1` FOREIGN KEY (`id_spettacolo`) REFERENCES `spettacolo` (`id`),
-  CONSTRAINT `proiezione_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id`)
+  `id_sala` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `proiezione`
+--
 
 INSERT INTO `proiezione` (`id`, `data_ora`, `id_spettacolo`, `id_sala`) VALUES
 (1, '2026-03-05 15:00:00', 1, 1),
@@ -221,32 +154,359 @@ INSERT INTO `proiezione` (`id`, `data_ora`, `id_spettacolo`, `id_sala`) VALUES
 (10, '2026-03-08 20:30:00', 3, 1);
 
 -- --------------------------------------------------------
--- Tabella `prenotazione`
--- --------------------------------------------------------
-CREATE TABLE `prenotazione` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_operazione` datetime DEFAULT NULL,
-  `numero_biglietti` int(11) NOT NULL,
-  `costo` decimal(6,2) DEFAULT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `id_proiezione` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_cliente` (`id_cliente`),
-  KEY `id_proiezione` (`id_proiezione`),
-  CONSTRAINT `prenotazione_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `utenti` (`id`),
-  CONSTRAINT `prenotazione_ibfk_2` FOREIGN KEY (`id_proiezione`) REFERENCES `proiezione` (`id`)
+
+--
+-- Struttura della tabella `regista`
+--
+
+CREATE TABLE `regista` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `cognome` varchar(50) DEFAULT NULL,
+  `data_nascita` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `prenotazione` (`id`, `data_operazione`, `numero_biglietti`, `costo`, `id_cliente`, `id_proiezione`) VALUES
-(1, '2026-03-01 10:00:00', 2, 16.00, 2, 1),
-(2, '2026-03-01 11:30:00', 1, 8.00, 3, 2),
-(3, '2026-03-02 09:00:00', 4, 32.00, 4, 3),
-(4, '2026-03-02 14:00:00', 2, 16.00, 5, 4),
-(5, '2026-03-03 16:00:00', 3, 24.00, 6, 5),
-(6, '2026-03-03 17:00:00', 1, 8.00, 7, 6),
-(7, '2026-03-04 10:00:00', 2, 16.00, 8, 7),
-(8, '2026-03-04 12:00:00', 5, 40.00, 9, 8),
-(9, '2026-03-04 15:00:00', 2, 16.00, 2, 9),
-(10, '2026-03-04 18:00:00', 3, 24.00, 4, 10);
+--
+-- Dump dei dati per la tabella `regista`
+--
 
+INSERT INTO `regista` (`id`, `nome`, `cognome`, `data_nascita`) VALUES
+(1, 'Christopher', 'Nolan', '1970-07-30'),
+(2, 'Quentin', 'Tarantino', '1963-03-27'),
+(3, 'Greta', 'Gerwig', '1983-08-04'),
+(4, 'Steven', 'Spielberg', '1946-12-18'),
+(5, 'Paolo', 'Sorrentino', '1970-05-31');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `sala`
+--
+
+CREATE TABLE `sala` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `capienza` int(11) NOT NULL,
+  `id_cinema` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `sala`
+--
+
+INSERT INTO `sala` (`id`, `nome`, `capienza`, `id_cinema`) VALUES
+(1, 'Sala 1', 120, 1),
+(2, 'Sala 2', 80, 1),
+(3, 'Sala IMAX', 200, 1),
+(4, 'Sala A', 100, 2),
+(5, 'Sala B', 60, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `spettacolo`
+--
+
+CREATE TABLE `spettacolo` (
+  `id` int(11) NOT NULL,
+  `titolo` varchar(100) NOT NULL,
+  `trama` text DEFAULT NULL,
+  `id_tematica` int(11) DEFAULT NULL,
+  `id_regista` int(11) DEFAULT NULL,
+  `id_casa_produttrice` int(11) DEFAULT NULL,
+  `attivo` enum('true','false') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `spettacolo`
+--
+
+INSERT INTO `spettacolo` (`id`, `titolo`, `trama`, `id_tematica`, `id_regista`, `id_casa_produttrice`, `attivo`) VALUES
+(1, 'Oppenheimer', 'La storia del padre della bomba atomica e del Progetto Manhattan.', 3, 1, 1, 'true'),
+(2, 'C era una volta a Hollywood', 'Los Angeles 1969: un attore western e il suo stuntman cercano gloria.', 2, 2, 2, 'true'),
+(3, 'Barbie', 'Barbie lascia Barbieland e scopre il mondo reale.', 2, 3, 1, 'true'),
+(4, 'Schindler s List', 'Un industriale tedesco salva oltre mille ebrei durante l Olocausto.', 3, 4, 2, 'true'),
+(5, 'La Grande Bellezza', 'Un giornalista romano riflette sulla sua vita tra feste e solitudine.', 3, 5, 3, 'true'),
+(6, 'Tenet', 'Un agente segreto impara a manipolare il flusso del tempo per salvare il mondo.', 6, 1, 4, 'true'),
+(7, 'Inception', 'Un ladro che ruba segreti attraverso i sogni viene incaricato di piantare un idea.', 6, 1, 1, 'true'),
+(8, 'Django Unchained', 'Uno schiavo liberato cerca di salvare sua moglie con l aiuto di un cacciatore di taglie.', 1, 2, 4, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `spettacoloparola`
+--
+
+CREATE TABLE `spettacoloparola` (
+  `id_spettacolo` int(11) NOT NULL,
+  `id_parola` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `spettacoloparola`
+--
+
+INSERT INTO `spettacoloparola` (`id_spettacolo`, `id_parola`) VALUES
+(1, 1),
+(1, 2),
+(1, 10),
+(2, 3),
+(2, 9),
+(3, 3),
+(3, 7),
+(4, 1),
+(4, 2),
+(5, 7),
+(5, 8),
+(6, 4),
+(6, 6),
+(7, 4),
+(7, 6),
+(8, 1),
+(8, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `tematica`
+--
+
+CREATE TABLE `tematica` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `descrizione` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `tematica`
+--
+
+INSERT INTO `tematica` (`id`, `nome`, `descrizione`) VALUES
+(1, 'Azione', 'Film ricchi di adrenalina, inseguimenti e combattimenti'),
+(2, 'Commedia', 'Film leggeri pensati per far ridere il pubblico'),
+(3, 'Dramma', 'Storie intense con forte impatto emotivo'),
+(4, 'Horror', 'Film pensati per spaventare e creare tensione'),
+(5, 'Romantico', 'Storie d amore e sentimenti'),
+(6, 'Fantascienza', 'Ambientazioni futuristiche e tecnologia avanzata');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `utenti`
+--
+
+CREATE TABLE `utenti` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `cognome` varchar(50) DEFAULT NULL,
+  `data_nascita` date DEFAULT NULL,
+  `email` varchar(150) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `ruolo` enum('admin','user') NOT NULL DEFAULT 'user',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `attivo` enum('true','false') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `utenti`
+--
+
+INSERT INTO `utenti` (`id`, `nome`, `cognome`, `data_nascita`, `email`, `password`, `password_hash`, `ruolo`, `created_at`, `attivo`) VALUES
+(1, 'Admin', 'Bucigno', '2007-08-23', 'bucignoandrea@gmail.com', 'test', '$2y$10$b82v51Sb6WxJyC4LjO.zMu6S3B7kRZCI/Y8zRBCL5C0lHJu19P5ZK', 'admin', '2026-03-17 07:10:25', 'true'),
+(2, 'Marco', 'Rossi', '1990-04-15', 'marco.rossi@cinema.it', 'test', '$2y$10$5MDOCEOgXVHEiM9lOXR06.MLhJSDQQePPP3tESdxpoy6se6WhP82m', 'user', '2026-03-17 07:10:25', 'true'),
+(3, 'Giulia', 'Bianchi', '1995-08-22', 'giulia.bianchi@cinema.it', 'test', '$2y$10$LqWkGiZGBRQkhZVAGl7ypeh.hKG18YTC0dbgrFd1w8LVadbE63Uom', 'user', '2026-03-17 07:10:25', 'true'),
+(4, 'Luca', 'Verdi', '1988-12-01', 'luca.verdi@cinema.it', 'test', '$2y$10$KBx8ZcJBWy3K41TgPtm4DeYJEIyIyI22q36xiBFajSW860D6qNyZ2', 'user', '2026-03-17 07:10:25', 'true'),
+(5, 'Anna', 'Neri', '2000-03-10', 'anna.neri@cinema.it', 'test', '$2y$10$eeHKqJefo09OIGpopArITOmFi6LweSPRAB0q.7mCascSyIz.aIWke', 'user', '2026-03-17 07:10:25', 'true'),
+(6, 'Paolo', 'Gialli', '1975-07-19', 'paolo.gialli@cinema.it', 'test', '$2y$10$/lLF6NashYBJqJ4TMw8hI.iSKGqVzsaP9RWZpAEb4Xu.NBUBuQ1v2', 'user', '2026-03-17 07:10:25', 'true'),
+(7, 'Sara', 'Blu', '1993-11-05', 'sara.blu@cinema.it', 'test', '$2y$10$Qp3NDywTfI1HeqyhevLQaew4EuCFUF.aaUZMx5CaSL12zPtwtb6tG', 'user', '2026-03-17 07:10:25', 'true'),
+(8, 'Matteo', 'Ferrari', '1998-02-28', 'matteo.ferrari@cinema.it', 'test', '$2y$10$qrIJERllKPigG1sVwCn2s.aODGIhNTpRT5yd0zQPWBxUZ/kbuUxzi', 'user', '2026-03-17 07:10:25', 'true'),
+(9, 'Chiara', 'Romano', '1985-06-14', 'chiara.romano@cinema.it', 'test', '$2y$10$nQmGXbJX5K0/5OMgNMzKV.8llanIoEISWCLyxeuBizW2lZQ9zINcm', 'user', '2026-03-17 07:10:25', 'true');
+
+--
+-- Indici per le tabelle scaricate
+--
+
+--
+-- Indici per le tabelle `casaproduttrice`
+--
+ALTER TABLE `casaproduttrice`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `cinema`
+--
+ALTER TABLE `cinema`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `parolachiave`
+--
+ALTER TABLE `parolachiave`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `prenotazione`
+--
+ALTER TABLE `prenotazione`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_proiezione` (`id_proiezione`);
+
+--
+-- Indici per le tabelle `proiezione`
+--
+ALTER TABLE `proiezione`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_spettacolo` (`id_spettacolo`),
+  ADD KEY `id_sala` (`id_sala`);
+
+--
+-- Indici per le tabelle `regista`
+--
+ALTER TABLE `regista`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `sala`
+--
+ALTER TABLE `sala`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cinema` (`id_cinema`);
+
+--
+-- Indici per le tabelle `spettacolo`
+--
+ALTER TABLE `spettacolo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tematica` (`id_tematica`),
+  ADD KEY `id_regista` (`id_regista`),
+  ADD KEY `id_casa_produttrice` (`id_casa_produttrice`);
+
+--
+-- Indici per le tabelle `spettacoloparola`
+--
+ALTER TABLE `spettacoloparola`
+  ADD PRIMARY KEY (`id_spettacolo`,`id_parola`),
+  ADD KEY `id_parola` (`id_parola`);
+
+--
+-- Indici per le tabelle `tematica`
+--
+ALTER TABLE `tematica`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `utenti`
+--
+ALTER TABLE `utenti`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT per le tabelle scaricate
+--
+
+--
+-- AUTO_INCREMENT per la tabella `casaproduttrice`
+--
+ALTER TABLE `casaproduttrice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT per la tabella `cinema`
+--
+ALTER TABLE `cinema`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT per la tabella `parolachiave`
+--
+ALTER TABLE `parolachiave`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT per la tabella `prenotazione`
+--
+ALTER TABLE `prenotazione`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT per la tabella `proiezione`
+--
+ALTER TABLE `proiezione`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT per la tabella `regista`
+--
+ALTER TABLE `regista`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT per la tabella `sala`
+--
+ALTER TABLE `sala`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT per la tabella `spettacolo`
+--
+ALTER TABLE `spettacolo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT per la tabella `tematica`
+--
+ALTER TABLE `tematica`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT per la tabella `utenti`
+--
+ALTER TABLE `utenti`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Limiti per le tabelle scaricate
+--
+
+--
+-- Limiti per la tabella `prenotazione`
+--
+ALTER TABLE `prenotazione`
+  ADD CONSTRAINT `prenotazione_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `utenti` (`id`),
+  ADD CONSTRAINT `prenotazione_ibfk_2` FOREIGN KEY (`id_proiezione`) REFERENCES `proiezione` (`id`);
+
+--
+-- Limiti per la tabella `proiezione`
+--
+ALTER TABLE `proiezione`
+  ADD CONSTRAINT `proiezione_ibfk_1` FOREIGN KEY (`id_spettacolo`) REFERENCES `spettacolo` (`id`),
+  ADD CONSTRAINT `proiezione_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id`);
+
+--
+-- Limiti per la tabella `sala`
+--
+ALTER TABLE `sala`
+  ADD CONSTRAINT `sala_ibfk_1` FOREIGN KEY (`id_cinema`) REFERENCES `cinema` (`id`);
+
+--
+-- Limiti per la tabella `spettacolo`
+--
+ALTER TABLE `spettacolo`
+  ADD CONSTRAINT `spettacolo_ibfk_1` FOREIGN KEY (`id_tematica`) REFERENCES `tematica` (`id`),
+  ADD CONSTRAINT `spettacolo_ibfk_2` FOREIGN KEY (`id_regista`) REFERENCES `regista` (`id`),
+  ADD CONSTRAINT `spettacolo_ibfk_3` FOREIGN KEY (`id_casa_produttrice`) REFERENCES `casaproduttrice` (`id`);
+
+--
+-- Limiti per la tabella `spettacoloparola`
+--
+ALTER TABLE `spettacoloparola`
+  ADD CONSTRAINT `spettacoloparola_ibfk_1` FOREIGN KEY (`id_spettacolo`) REFERENCES `spettacolo` (`id`),
+  ADD CONSTRAINT `spettacoloparola_ibfk_2` FOREIGN KEY (`id_parola`) REFERENCES `parolachiave` (`id`);
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

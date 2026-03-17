@@ -12,6 +12,7 @@ switch ($_POST['action'] ?? '') {
                     ':data_nascita' => $_POST['data_nascita'] ?: null,
                     ':email'        => $_POST['email'],
                     ':password'     => $_POST['password'],
+                    ':password_hash' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                 ]);
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
