@@ -25,7 +25,7 @@ $body = "
 <br>
 
 <div style='background-color:var(--grigio-1); border:1px solid var(--grigio-3); border-radius:8px; padding:24px; max-width:500px; margin:24px auto; display:flex; flex-direction:column; align-items:center; gap:16px;'>
-    <img src='https://randomuser.me/api/portraits/men/64.jpg' class='rounded-circle img-thumbnail' alt='Profile Picture' style='width:100px; height:100px;'>
+    <img src='https://randomuser.me/api/portraits/lego/8.jpg' class='rounded-circle img-thumbnail' alt='Profile Picture' style='width:100px; height:100px;'>
     <h5 style='color:var(--testo); border-bottom:1px solid var(--grigio-3); padding-bottom:12px; margin-bottom:16px; width:100%; text-align:center;'>
         Informazioni Account
     </h5>
