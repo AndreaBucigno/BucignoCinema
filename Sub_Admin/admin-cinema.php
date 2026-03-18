@@ -7,7 +7,7 @@ if (!isset($_SESSION['admin_id'])) {
 require_once __DIR__ . "/../config/db.php";
 
 $cinema = $pdo->query("SELECT * FROM cinema WHERE attivo = true ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
-$sale   = $pdo->query("SELECT s.*, c.nome AS nome_cinema FROM sala s INNER JOIN cinema c ON s.id_cinema = c.id  WHERE s.attivo=true AND c.attivo=true ORDER BY c.nome, s.nome")->fetchAll(PDO::FETCH_ASSOC);
+$sale = $pdo->query("SELECT s.*, c.nome AS nome_cinema FROM sala s INNER JOIN cinema c ON s.id_cinema = c.id WHERE c.attivo='true' ORDER BY c.nome, s.nome")->fetchAll(PDO::FETCH_ASSOC);
 
 $righeCinema = '';
 foreach ($cinema as $c) {
