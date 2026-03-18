@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../config/db.php";
-
+session_start();
 switch ($_POST['action'] ?? '') {
     case 'add_cinema':
         try {
@@ -9,6 +9,7 @@ switch ($_POST['action'] ?? '') {
         } catch (PDOException $e) {
             $message = "Errore nell'inserimento di un nuovo cinema";
             appLog(40, $message);
+            $_SESSION['error'] = $message;
         }
         header("Location: ../Sub_Admin/admin-cinema.php");
         break;
@@ -20,6 +21,7 @@ switch ($_POST['action'] ?? '') {
         } catch (PDOException $e) {
             $message = "Errore nella modifica del cinema";
             appLog(40, $message);
+            $_SESSION['error'] = $message;
         }
         header("Location: ../Sub_Admin/admin-cinema.php");
         break;
@@ -31,6 +33,7 @@ switch ($_POST['action'] ?? '') {
         } catch (PDOException $e) {
             $message = "Errore nell'inserimento di una nuova sala";
             appLog(40, $message);
+            $_SESSION['error'] = $message;
         }
         header("Location: ../Sub_Admin/admin-cinema.php");
         break;
@@ -42,6 +45,7 @@ switch ($_POST['action'] ?? '') {
         } catch (PDOException $e) {
             $message = "Errore nella modifica della sala";
             appLog(40, $message);
+            $_SESSION['error'] = $message;
         }
         header("Location: ../Sub_Admin/admin-cinema.php");
         break;
@@ -53,6 +57,7 @@ switch ($_POST['action'] ?? '') {
         } catch (PDOException $e) {
             $message = "Errore nell'eliminazione della sala";
             appLog(40, $message);
+            $_SESSION['error'] = $message;
         }
         header("Location: ../Sub_Admin/admin-cinema.php");
         break;
@@ -64,6 +69,7 @@ switch ($_POST['action'] ?? '') {
         } catch (PDOException $e) {
             $message = "Errore nell'eliminazione del cinema";
             appLog(40, $message);
+            $_SESSION['error'] = $message;
         }
         header("Location: ../Sub_Admin/admin-cinema.php");
         break;

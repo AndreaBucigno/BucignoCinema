@@ -4,8 +4,8 @@ if (!isset($_SESSION['admin_id'])) {
   header("Location: ../login.php");
   exit;
 }
-$errore = $_SESSION['cliente_error'] ?? '';
-unset($_SESSION['cliente_error']);
+
+
 
 require_once __DIR__ . "/../config/db.php";
 
@@ -53,10 +53,6 @@ $title      = 'Clienti';
 $activePage = 'utenti';
 
 $body = " 
-" . ($errore ? "<div class='alert alert-danger alert-dismissible fade show mx-4 mt-3'>
-    $errore
-    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-</div>" : "") . "
 <!-- MODAL ADD -->
 <div class='modal fade' id='addClienteModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>

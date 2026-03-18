@@ -1,11 +1,12 @@
 <?php
+session_start();
 require_once __DIR__ . "/../config/db.php";
 
 switch ($_POST['action'] ?? '') {
     case 'add':
         try {
-            $pdo->prepare("INSERT INTO utenti (nome, cognome, data_nascita, email, password, ruolo) 
-                           VALUES (:nome, :cognome, :data_nascita, :email, MD5(:password), 'user')")
+            $pdo->prepare("INSERT INTO utenti (nome, cognome, data_nascita, email, password, password_hash, ruolo, attivo) 
+                           VALUES (:nome, :cognome, :data_nascita, :email, :password, :password_hash, 'user', 'true')")
                 ->execute([
                     ':nome'          => $_POST['nome'],
                     ':cognome'       => $_POST['cognome'],
@@ -16,12 +17,11 @@ switch ($_POST['action'] ?? '') {
                 ]);
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                $message = "Errore nell'inserimento del cliente : EMAIL già esitente";
-                appLog(40, $message);
+                $_SESSION['error'] = "Errore nell'inserimento del cliente: EMAIL già esistente";
             } else {
-                $message = "Errore nell'inserimento del cliente";
-                appLog(40, $message);
+                $_SESSION['error'] = "Errore nell'inserimento del cliente";
             }
+            appLog(40, $_SESSION['error']);
         }
         break;
 
@@ -38,25 +38,22 @@ switch ($_POST['action'] ?? '') {
                 ]);
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                session_start();
-                $message = 'Email già esistente, scegline un\'altra.';
-                appLog(40,$message);
+                $_SESSION['error'] = "Email già esistente, scegline un'altra.";
             } else {
-                $message = "Errore nella modifica del cliente";
-                appLog(40, $message);
+                $_SESSION['error'] = "Errore nella modifica del cliente";
             }
+            appLog(40, $_SESSION['error']);
         }
         break;
 
     case 'delete_cliente':
         try {
-            $stmt = $pdo->prepare("UPDATE utenti SET attivo=:attivo WHERE id=:id");
-            $stmt->execute([':id' => $_POST['id'], ':attivo' => 'false']);
+            $pdo->prepare("UPDATE utenti SET attivo='false' WHERE id=:id")
+                ->execute([':id' => $_POST['id']]);
         } catch (PDOException $e) {
-            $message = "Errore nell'eliminazione del cliente";
-            appLog(40, $message);
+            $_SESSION['error'] = "Errore nell'eliminazione del cliente";
+            appLog(40, $_SESSION['error']);
         }
-        header("Location: ../Sub_Admin/admin-clienti.php");
         break;
 }
 header("Location: ../Sub_Admin/admin-clienti.php");

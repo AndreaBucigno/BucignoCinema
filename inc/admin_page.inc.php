@@ -49,7 +49,13 @@
                 </div>
             </div>
             <div class="p-4 bg-dark shadow-sm rounded ">
-
+                <?php $errore = $_SESSION['error'] ?? ''; unset($_SESSION['error']); ?>
+                <?php if ($errore): ?>
+                <div class='alert alert-danger alert-dismissible fade show mx-4 mt-3'>
+                    <?= htmlspecialchars($errore) ?>
+                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+                </div>
+                <?php endif; ?>
                 {{body}}
             </div>
         </div>

@@ -17,13 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_name'] = $utente['nome'];
                 $_SESSION['admin_role'] = $utente['ruolo'];
                 appLog(10, "Login admin: {$utente['email']}");
+                $_SESSION['error'] = $message;
                 header("Location: ../admin.php");
+                $_SESSION["message"]
                 exit;
             } else if ($utente && password_verify($password, $utente['password_hash']) && $utente['ruolo'] === 'user' && $utente['attivo'] === 'true') {
                 $_SESSION['user_id']   = $utente['id'];
                 $_SESSION['user_name'] = $utente['nome'];
                 $_SESSION['user_role'] = $utente['ruolo'];
-                appLog(10, "Login user: {$utente['email']}");
+                $message = "Login user: {$utente['email']}";
+                $_SESSION['error'] = $message;
+                appLog(10,$message);
                 header("Location: ../user.php");
                 exit;
             } else {
@@ -34,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (PDOException $e) {
             $message = "Errore del server durante il login";
             appLog(40, $message);
+            $_SESSION['error'] = $message;
             header("Location: ../login.php");
             exit;
         }

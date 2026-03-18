@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../config/db.php";
-
+session_start();
 switch ($_POST['action'] ?? '') {
     case 'add':
         try {

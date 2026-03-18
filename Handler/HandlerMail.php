@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../assets/lib/vendor/autoload.php';
-
+session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

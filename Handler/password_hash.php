@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/config/db.php';
-
+session_start();
 $utenti = $pdo->query("SELECT id, password FROM utenti")->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($utenti as $u) {

@@ -16,7 +16,8 @@ try {
 function appLog($level, $message) {
     $date = date("Y-m-d H:i:s");
     $line = "[$date] [$level] $message" . PHP_EOL;
-    file_put_contents(__DIR__ . "../Logs/app.log", $line, FILE_APPEND);
+    file_put_contents(__DIR__ . "/../Logs/app.log", $line, FILE_APPEND);
+    
 }
 
 /*
