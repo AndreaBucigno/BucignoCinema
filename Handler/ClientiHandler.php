@@ -16,8 +16,8 @@ switch ($_POST['action'] ?? '') {
                 ]);
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                session_start();
-                $_SESSION['cliente_error'] = 'Email già esistente, scegline un\'altra.';
+                $message = "Errore nell'inserimento del cliente : EMAIL già esitente";
+                appLog(40, $message);
             } else {
                 $message = "Errore nell'inserimento del cliente";
                 appLog(40, $message);
@@ -39,7 +39,8 @@ switch ($_POST['action'] ?? '') {
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
                 session_start();
-                $_SESSION['cliente_error'] = 'Email già esistente, scegline un\'altra.';
+                $message = 'Email già esistente, scegline un\'altra.';
+                appLog(40,$message);
             } else {
                 $message = "Errore nella modifica del cliente";
                 appLog(40, $message);

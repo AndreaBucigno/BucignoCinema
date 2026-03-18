@@ -8,13 +8,15 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Errore di connessione: " . $e->getMessage());
+    $message = "Errore nella connessione al database: " . $e->getMessage();
+    appLog(50,$message);
+    die($message);
 }
 
 function appLog($level, $message) {
     $date = date("Y-m-d H:i:s");
     $line = "[$date] [$level] $message" . PHP_EOL;
-    file_put_contents(__DIR__ . "/app.log", $line, FILE_APPEND);
+    file_put_contents(__DIR__ . "../Logs/app.log", $line, FILE_APPEND);
 }
 
 /*
