@@ -41,9 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->send();
                     $message      = 'Email inviata! Controlla la tua casella di posta.';
                     $message_type = 'success';
+                    appLog(10,$message);
                 } catch (\Exception $e) {
                     $message      = 'Errore durante l\'invio: ' . $e->getMessage();
                     $message_type = 'danger';
+                    appLog(40,$message);
                 }
             } else {
                 $message      = 'Server di posta non configurato.';
