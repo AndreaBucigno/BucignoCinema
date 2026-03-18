@@ -24,6 +24,9 @@ function getMailerInstance()
 
         return $mail;
     } catch (Exception $e) {
-        return null;
+        $message = "Errore durante l'invio della mail";
+        appLog(50,$message);
+
+
     }
 }

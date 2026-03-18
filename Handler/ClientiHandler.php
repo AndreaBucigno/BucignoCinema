@@ -7,18 +7,20 @@ switch ($_POST['action'] ?? '') {
             $pdo->prepare("INSERT INTO utenti (nome, cognome, data_nascita, email, password, ruolo) 
                            VALUES (:nome, :cognome, :data_nascita, :email, MD5(:password), 'user')")
                 ->execute([
-                    ':nome'         => $_POST['nome'],
-                    ':cognome'      => $_POST['cognome'],
-                    ':data_nascita' => $_POST['data_nascita'] ?: null,
-                    ':email'        => $_POST['email'],
-                    ':password'     => $_POST['password'],
+                    ':nome'          => $_POST['nome'],
+                    ':cognome'       => $_POST['cognome'],
+                    ':data_nascita'  => $_POST['data_nascita'] ?: null,
+                    ':email'         => $_POST['email'],
+                    ':password'      => $_POST['password'],
                     ':password_hash' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                 ]);
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                // Email duplicata
                 session_start();
                 $_SESSION['cliente_error'] = 'Email già esistente, scegline un\'altra.';
+            } else {
+                $message = "Errore nell'inserimento del cliente";
+                appLog(40, $message);
             }
         }
         break;
@@ -38,18 +40,23 @@ switch ($_POST['action'] ?? '') {
             if ($e->getCode() == 23000) {
                 session_start();
                 $_SESSION['cliente_error'] = 'Email già esistente, scegline un\'altra.';
+            } else {
+                $message = "Errore nella modifica del cliente";
+                appLog(40, $message);
             }
         }
         break;
 
-
     case 'delete_cliente':
-
+        try {
             $stmt = $pdo->prepare("UPDATE utenti SET attivo=:attivo WHERE id=:id");
             $stmt->execute([':id' => $_POST['id'], ':attivo' => 'false']);
-            header("Location: ../Sub_Admin/admin-clienti.php");
-            break;
-
+        } catch (PDOException $e) {
+            $message = "Errore nell'eliminazione del cliente";
+            appLog(40, $message);
+        }
+        header("Location: ../Sub_Admin/admin-clienti.php");
+        break;
 }
 header("Location: ../Sub_Admin/admin-clienti.php");
 exit;

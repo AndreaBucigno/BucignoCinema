@@ -11,7 +11,9 @@ $stmt = $pdo->prepare("SELECT * FROM utenti WHERE id = :id");
 $stmt->execute([':id' => $_SESSION['admin_id']]);
 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 }catch(PDOException $e){
-    die("Errore nella connessione al database: " . $e->getMessage());
+    $message = "Errore nella connessione al database: " . $e->getMessage();
+    appLog(50,$message);
+    die($message);
 }
 
 $title      = 'Dashboard';
