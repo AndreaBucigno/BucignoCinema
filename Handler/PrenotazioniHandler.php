@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__ . "/../config/db.php";
 session_start();
+require_once __DIR__ . "/../config/db.php";
+
 switch ($_POST['action'] ?? '') {
     case 'add':
         try {
@@ -13,10 +14,14 @@ switch ($_POST['action'] ?? '') {
                     ':id_proiezione'    => $_POST['id_proiezione'],
                 ]);
         } catch (PDOException $e) {
-            $message = "Errore nell'inserimento della prenotazione";
-            appLog(40, $message);
+            $_SESSION['error'] = "Errore nell'inserimento della prenotazione";
+            appLog(40, $_SESSION['error']);
         }
         break;
 }
-header("Location: ../Sub_Admin/admin-prenotazioni.php");
+if (isset($_SESSION['admin_id'])) {
+    header("Location: ../Sub_Admin/admin-prenotazioni.php");
+} else {
+    header("Location: ../Sub_User/user-prenotazioni.php");
+}
 exit;

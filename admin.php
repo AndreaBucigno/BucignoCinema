@@ -6,13 +6,13 @@ if (!isset($_SESSION['admin_id'])) {
 }
 require_once __DIR__ . '/config/db.php';
 
-try{
-$stmt = $pdo->prepare("SELECT * FROM utenti WHERE id = :id");
-$stmt->execute([':id' => $_SESSION['admin_id']]);
-$admin = $stmt->fetch(PDO::FETCH_ASSOC);
-}catch(PDOException $e){
+try {
+    $stmt = $pdo->prepare("SELECT * FROM utenti WHERE id = :id");
+    $stmt->execute([':id' => $_SESSION['admin_id']]);
+    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
     $message = "Errore nella connessione al database: " . $e->getMessage();
-    appLog(50,$message);
+    appLog(50, $message);
     die($message);
 }
 
@@ -20,7 +20,7 @@ $title      = 'Dashboard';
 $activePage = 'dashboard';
 $body = "
 <div class='container text-white py-4 text-center align-item-center'>
-<h2 class='mb-4'>Benvenuto, " . htmlspecialchars($_SESSION['admin_name'] ?? 'Admin') . "!</h2>
+<h2 class='mb-4'>Benvenuto, " . htmlspecialchars(strtoupper($admin['nome']) ?? 'Admin') . "!</h2>
 <p style='color:var(--testo-muted);'>Questa è la tua area personale.</p>
 <br>
 
@@ -36,9 +36,11 @@ $body = "
 </div>
 </div>
 ";
+
+
 $template = file_get_contents("inc/admin_page.inc.php");
 $template = str_replace("{{active_Home}}", $activePage == 'dashboard' ? 'active' : '', $template);
-$template = str_replace("{{admin_name}}", $_SESSION['admin_name'], $template);
+$template = str_replace("{{admin_name}}", strtoupper($admin['nome']), $template);
 $template = str_replace("{{title}}", $title, $template);
 $template = str_replace("{{body}}", $body, $template);
 echo $template;

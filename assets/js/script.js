@@ -9,5 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('proiezioniTable'))   new DataTable('#proiezioniTable');
     if (document.getElementById('prenotazioniTable')) new DataTable('#prenotazioniTable');
     if (document.getElementById('clientiTable'))      new DataTable('#clientiTable');
+    if (document.getElementById('UserprenotazioniTable'))       new DataTable('#UserprenotazioniTable');
 
 });

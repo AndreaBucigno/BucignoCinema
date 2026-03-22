@@ -18,16 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_role'] = $utente['ruolo'];
                 appLog(10, "Login admin: {$utente['email']}");
                 $_SESSION['error'] = $message;
+                $_SESSION["message"] = "Login effettuato con successo.";
                 header("Location: ../admin.php");
-                $_SESSION["message"]
+                appLog(10, $_SESSION["message"]);
                 exit;
             } else if ($utente && password_verify($password, $utente['password_hash']) && $utente['ruolo'] === 'user' && $utente['attivo'] === 'true') {
                 $_SESSION['user_id']   = $utente['id'];
                 $_SESSION['user_name'] = $utente['nome'];
                 $_SESSION['user_role'] = $utente['ruolo'];
-                $message = "Login user: {$utente['email']}";
-                $_SESSION['error'] = $message;
-                appLog(10,$message);
+                $_SESSION["message"] = "Login effettuato con successo.";
+                appLog(10, $_SESSION["message"]);
                 header("Location: ../user.php");
                 exit;
             } else {

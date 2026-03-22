@@ -102,9 +102,9 @@ function apriEditProiezione(id, data, idSpettacolo, idSala) {
 ";
 
 $template = file_get_contents("../inc/admin_page.inc.php");
-$template = str_replace("{{title}}",      $title,                             $template);
-$template = str_replace("{{body}}",       $body,                              $template);
-$template = str_replace("{{admin_name}}", $_SESSION['admin_name'] ?? 'Admin', $template);
+$template = str_replace("{{title}}", $title, $template);
+$template = str_replace("{{body}}", $body, $template);
+$template = str_replace("{{admin_name}}", strtoupper($_SESSION['admin_name']), $template);
 $voci = ['dashboard', 'film', 'programmazione', 'biglietti', 'utenti', 'statistiche', 'impostazioni', 'registi', 'case', 'cinema'];
 foreach ($voci as $voce) {
   $template = str_replace("{{active_$voce}}", $activePage === $voce ? 'active' : '', $template);

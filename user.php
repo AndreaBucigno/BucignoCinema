@@ -5,13 +5,13 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 require_once __DIR__ . "/config/db.php";
-try{
-$stmt = $pdo->prepare("SELECT * FROM utenti WHERE id = :id");
-$stmt->execute([':id' => $_SESSION['user_id']]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-}catch(PDOException $e){
+try {
+    $stmt = $pdo->prepare("SELECT * FROM utenti WHERE id = :id");
+    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
     $message = "Errore nella connessione al database: " . $e->getMessage();
-    appLog(50,$message);
+    appLog(50, $message);
     die($message);
 }
 
@@ -22,7 +22,7 @@ $activePage = 'profilo';
 
 $body = "
 <div class='container text-white py-4 text-center align-item-center'>
-<h2 class='sezione-titolo mb-4'>Benvenuto, " . htmlspecialchars($_SESSION['user_name'] ?? 'Utente') . "!</h2>
+<h2 class='sezione-titolo mb-4'>Benvenuto, " . htmlspecialchars($user['nome'] ?? 'Utente') . "!</h2>
 <p style='color:var(--testo-muted);'>Questa è la tua area personale.</p>
 <br>
 
@@ -33,7 +33,6 @@ $body = "
     </h5>
     <p style='color:var(--testo-muted); width:100%;'><span style='color:var(--testo);'>Nome:</span> {$user['nome']} {$user['cognome']}</p>
     <p style='color:var(--testo-muted); width:100%;'><span style='color:var(--testo);'>Email:</span> {$user['email']}</p>
-    <p style='color:var(--testo-muted); width:100%;'><span style='color:var(--testo);'>Ruolo:</span> {$user['ruolo']}</p>
     <p style='color:var(--testo-muted); width:100%;'><span style='color:var(--testo);'>Data nascita:</span> " . ($user['data_nascita'] ?? '—') . "</p>
 </div>
 </div>
