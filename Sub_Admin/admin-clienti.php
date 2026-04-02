@@ -49,11 +49,44 @@ foreach ($clienti as $c) {
     </tr>";
 }
 
+$stmt = "SELECT COUNT(*) AS totale FROM utenti WHERE ruolo = 'user' AND attivo = 'true'";
+$result = $pdo->query($stmt)->fetch(PDO::FETCH_ASSOC);
+$valore_db = $result['totale'];
+
 $title      = 'Clienti';
 $activePage = 'utenti';
 
 $body = " 
-<!-- MODAL ADD -->
+<div class='container-fluid text-white p-4'>
+    <div class='row justify-content-center mb-5'>
+        <div class='col-auto'>
+            <div class='card bg-dark border-secondary rounded shadow-sm'>
+                <div class='card-body text-center p-4 px-5'>
+                    <h6 class='text-uppercase mb-2 text-light fw-semibold'>
+                        Totale Clienti
+                    </h6>
+                    <h2 class='fw-bold mb-0 text-danger display-6'>
+                        {$valore_db}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='d-flex justify-content-between align-items-center mb-4'>
+        <h2 class='mb-0'>Clienti</h2>
+        <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#addClienteModal'>
+            <i class='bi bi-plus-circle me-1'></i>Aggiungi Cliente
+        </button>
+    </div>
+    <div class='table-responsive'>
+      <table class='table table-striped table-dark' id='clientiTable'>
+        <thead><tr><th>ID</th><th>Nome</th><th>Cognome</th><th>Email</th><th>Data Nascita</th><th>Azioni</th></tr></thead>
+        <tbody>$righe</tbody>
+      </table>
+    </div>
+</div>
+
 <div class='modal fade' id='addClienteModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
     <div class='modal-header bg-danger text-white border-0'>
@@ -79,7 +112,6 @@ $body = "
   </div></div>
 </div>
 
-<!-- MODAL EDIT -->
 <div class='modal fade' id='editClienteModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
     <div class='modal-header bg-danger text-dark border-0'>
@@ -103,21 +135,6 @@ $body = "
       <button type='submit' form='editClienteForm' class='btn btn-warning text-dark fw-semibold'><i class='bi bi-check-circle me-1'></i>Salva</button>
     </div>
   </div></div>
-</div>
-
-<div class='container-fluid text-white p-4'>
-    <div class='d-flex justify-content-between align-items-center mb-4'>
-        <h2 class='mb-0'>Clienti</h2>
-        <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#addClienteModal'>
-            <i class='bi bi-plus-circle me-1'></i>Aggiungi Cliente
-        </button>
-    </div>
-    <div class='table-responsive'>
-      <table class='table table-striped table-dark' id='clientiTable'>
-        <thead><tr><th>ID</th><th>Nome</th><th>Cognome</th><th>Email</th><th>Data Nascita</th><th>Azioni</th></tr></thead>
-        <tbody>$righe</tbody>
-      </table>
-    </div>
 </div>
 
 <script>

@@ -63,6 +63,12 @@ foreach ($proiezioni as $p) {
 
 $title      = 'Le mie Prenotazioni';
 $activePage = 'prenotazioni';
+$stmt = "SELECT COUNT(*) AS totale_prenotazioni FROM prenotazione WHERE id_cliente = {$_SESSION['user_id']}";
+$result = $pdo->query($stmt)->fetch(PDO::FETCH_ASSOC);
+$valore_db = $result['totale_prenotazioni'];
+$stmt = "SELECT AVG(costo) AS costo_medio FROM prenotazione WHERE id_cliente = {$_SESSION['user_id']}";
+$result = $pdo->query($stmt)->fetch(PDO::FETCH_ASSOC);
+$costo_medio = number_format($result['costo_medio'], 2);
 
 $body = "
 <!-- MODAL NUOVA PRENOTAZIONE -->
@@ -99,7 +105,34 @@ $body = "
     </div>
   </div></div>
 </div>
-
+<div class='container-fluid text-white p-4 justify-content-between align-items-center mb-4'>
+    <div class='row justify-content-center mb-5 gap-3'>
+        <div class='col-auto'>
+            <div class='card bg-dark border-secondary rounded shadow-sm'>
+                <div class='card-body text-center p-4 px-5'>
+                    <h6 class='text-uppercase mb-2 text-light fw-semibold'>
+                        Totale Prenotazioni
+                    </h6>
+                    <h2 class='fw-bold mb-0 text-danger display-6'>
+                        {$valore_db}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class='col-auto'>
+            <div class='card bg-dark border-secondary rounded shadow-sm'>
+                <div class='card-body text-center p-4 px-5'>
+                    <h6 class='text-uppercase mb-2 text-light fw-semibold'>
+                        Media Costo Prenotazione
+                    </h6>
+                    <h2 class='fw-bold mb-0 text-danger display-6'>
+                        €{$costo_medio}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class='container py-4'>
     <div class='d-flex justify-content-between align-items-center mb-4'>
         <h2 class='sezione-titolo mb-0'>Le mie Prenotazioni</h2>

@@ -46,8 +46,27 @@ foreach ($sale as $s) $optSale .= "<option value='{$s['id']}'>" . htmlspecialcha
 
 $title      = 'Proiezioni';
 $activePage = 'programmazione';
+$stmt = "SELECT COUNT(*) AS totale_proiezioni FROM proiezione";
+$result = $pdo->query($stmt)->fetch(PDO::FETCH_ASSOC);
+$valore_db = $result['totale_proiezioni'];
 
 $body = "
+<div class='container-fluid text-white p-4'>
+    <div class='row justify-content-center mb-5'>
+        <div class='col-auto'>
+            <div class='card bg-dark border-secondary rounded shadow-sm'>
+                <div class='card-body text-center p-4 px-5'>
+                    <h6 class='text-uppercase mb-2 text-light fw-semibold'>
+                        Totale Proiezioni
+                    </h6>
+                    <h2 class='fw-bold mb-0 text-danger display-6'>
+                        {$valore_db}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 <!-- MODAL ADD -->
 <div class='modal fade' id='addProiezioneModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>

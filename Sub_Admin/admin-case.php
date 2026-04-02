@@ -32,6 +32,7 @@ $activePage = 'case';
 
 $body = "
 <!-- MODAL AGGIUNGI -->
+
 <div class='modal fade' id='addCasaModal' tabindex='-1'>
   <div class='modal-dialog'>
     <div class='modal-content bg-dark border-danger'>

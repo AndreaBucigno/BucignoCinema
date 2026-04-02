@@ -56,8 +56,43 @@ foreach ($proiezioni as $p) $optProiezioni .= "<option value='{$p['id']}'>" . ht
 
 $title      = 'Prenotazioni';
 $activePage = 'biglietti';
+$stmt = "SELECT COUNT(*) AS totale_prenotazioni FROM prenotazione";
+$result = $pdo->query($stmt)->fetch(PDO::FETCH_ASSOC);
+$valore_db = $result['totale_prenotazioni'];
+
+$stmt_avg = "SELECT AVG(costo) AS costo_medio FROM prenotazione";
+$result_avg = $pdo->query($stmt_avg)->fetch(PDO::FETCH_ASSOC);
+$costo_medio = number_format($result_avg['costo_medio'], 2);
 
 $body = "
+<div class='container-fluid text-white p-4 justify-content-between align-items-center mb-4'>
+    <div class='row justify-content-center mb-5 gap-3'>
+        <div class='col-auto'>
+            <div class='card bg-dark border-secondary rounded shadow-sm'>
+                <div class='card-body text-center p-4 px-5'>
+                    <h6 class='text-uppercase mb-2 text-light fw-semibold'>
+                        Totale Prenotazioni
+                    </h6>
+                    <h2 class='fw-bold mb-0 text-danger display-6'>
+                        {$valore_db}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class='col-auto'>
+            <div class='card bg-dark border-secondary rounded shadow-sm'>
+                <div class='card-body text-center p-4 px-5'>
+                    <h6 class='text-uppercase mb-2 text-light fw-semibold'>
+                        Media Costo Prenotazione
+                    </h6>
+                    <h2 class='fw-bold mb-0 text-danger display-6'>
+                        €{$costo_medio}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- MODAL ADD -->
 <div class='modal fade' id='addPrenotazioneModal' tabindex='-1'>
   <div class='modal-dialog'><div class='modal-content bg-dark border-danger'>
@@ -83,6 +118,7 @@ $body = "
     </div>
   </div></div>
 </div>
+
 
 <div class='container-fluid text-white p-4'>
     <div class='d-flex justify-content-between align-items-center mb-4'>
