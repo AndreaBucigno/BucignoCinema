@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 17, 2026 alle 08:31
+-- Creato il: Apr 13, 2026 alle 09:36
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -187,19 +187,20 @@ CREATE TABLE `sala` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) DEFAULT NULL,
   `capienza` int(11) NOT NULL,
-  `id_cinema` int(11) NOT NULL
+  `id_cinema` int(11) NOT NULL,
+  `attivo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `sala`
 --
 
-INSERT INTO `sala` (`id`, `nome`, `capienza`, `id_cinema`) VALUES
-(1, 'Sala 1', 120, 1),
-(2, 'Sala 2', 80, 1),
-(3, 'Sala IMAX', 200, 1),
-(4, 'Sala A', 100, 2),
-(5, 'Sala B', 60, 2);
+INSERT INTO `sala` (`id`, `nome`, `capienza`, `id_cinema`, `attivo`) VALUES
+(1, 'Sala 1', 120, 1, 1),
+(2, 'Sala 2', 80, 1, 1),
+(3, 'Sala IMAX', 200, 1, 1),
+(4, 'Sala A', 100, 2, 1),
+(5, 'Sala B', 60, 2, 1);
 
 -- --------------------------------------------------------
 
