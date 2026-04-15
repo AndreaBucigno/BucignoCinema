@@ -264,6 +264,7 @@ footer {
   color: #e8e8e8;
   box-shadow: 0 0 0 2px rgba(176,42,55,0.3);
 }
+
 /* ── FORM CONTROLS ── */
 .form-control,
 .form-select {
@@ -336,4 +337,62 @@ footer {
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
     color: var(--rosso) !important;
+}
+
+/* ── DATATABLES ── */
+
+/* Wrapper generale */
+div.dt-container {
+    color: var(--testo);
+}
+
+/* Barra di ricerca e "entries per page" */
+div.dt-container .dt-search input,
+div.dt-container .dt-length select {
+    background-color: var(--grigio-3) !important;
+    border: 1px solid #444 !important;
+    color: var(--testo) !important;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+div.dt-container .dt-search input:focus,
+div.dt-container .dt-length select:focus {
+    border-color: var(--rosso) !important;
+    box-shadow: 0 0 0 2px rgba(176,42,55,0.3) !important;
+    outline: none;
+}
+
+/* Label "entries per page" e "Search:" */
+div.dt-container .dt-length label,
+div.dt-container .dt-search label {
+    color: var(--testo-muted);
+    font-size: 0.85rem;
+}
+
+/* "Showing X to Y of Z entries" */
+div.dt-container .dt-info {
+    color: var(--testo-muted);
+    font-size: 0.85rem;
+}
+
+/* Paginazione */
+div.dt-container .dt-paging .dt-paging-button {
+    background-color: var(--grigio-3) !important;
+    border: 1px solid #444 !important;
+    color: var(--testo) !important;
+    border-radius: 4px;
+}
+div.dt-container .dt-paging .dt-paging-button:hover {
+    background-color: var(--rosso) !important;
+    border-color: var(--rosso) !important;
+    color: white !important;
+}
+div.dt-container .dt-paging .dt-paging-button.current {
+    background-color: var(--rosso) !important;
+    border-color: var(--rosso) !important;
+    color: white !important;
+}
+div.dt-container .dt-paging .dt-paging-button.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }

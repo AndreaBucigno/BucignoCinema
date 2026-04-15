@@ -7,12 +7,9 @@
     <title>BucignoCinema — {{title}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <link href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="//cdn.datatables.net/2.3.7/js/jquery.dataTables.min.js"></script>
+    <link href="//cdn.datatables.net/2.3.7/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/BucignoCinema/assets/css/styles.css" />
 </head>
-
 <body>
 
     <!-- NAVBAR -->
@@ -61,7 +58,10 @@
         <small>&copy; 2026 BucignoCinema — Tutti i diritti riservati</small>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
+    <script src="/BucignoCinema/assets/js/script.js"></script>
 </body>
 
 </html>

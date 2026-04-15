@@ -81,7 +81,7 @@ $body = "
     </div>
     <div class='table-responsive'>
       <table class='table table-striped table-dark' id='clientiTable'>
-        <thead><tr><th>ID</th><th>Nome</th><th>Cognome</th><th>Email</th><th>Data Nascita</th><th>Azioni</th></tr></thead>
+        <thead><tr><th>ID</th><th>Nome</th><th>Cognome</th><th>Email</th><th>Data Nascita</th><th>Modifica</th><th>Elimina</th></tr></thead>
         <tbody>$righe</tbody>
       </table>
     </div>

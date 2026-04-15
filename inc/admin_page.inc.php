@@ -7,11 +7,8 @@
     <title>BucignoCinema — {{title}}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="//cdn.datatables.net/2.3.7/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/BucignoCinema/assets/css/styles.css" />
-    <link href="//cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css" rel="stylesheet" />
-    <script src="//cdn.datatables.net/2.3.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/BucignoCinema/assets/js/script.js"></script>
 </head>
 
 <body class="bg-dark">
@@ -56,8 +53,11 @@
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="?v=<?php echo file_exists(__DIR__ . '/assets/js/script.js') ? filemtime(__DIR__ . '/assets/js/script.js') : 0; ?>"></script>
+    <script src="//cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
+    <script src="/BucignoCinema/assets/js/script.js"></script>
+</body>
 </body>
 
 </html>
