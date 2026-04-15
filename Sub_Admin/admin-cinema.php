@@ -143,7 +143,7 @@ $body = "
     </div>
     <div class='table-responsive mb-5'>
       <table class='table table-striped table-dark' id='cinemaTable'>
-        <thead><tr><th>ID</th><th>Nome</th><th>Indirizzo</th><th>Città</th><th>Azioni</th></tr></thead>
+        <thead><tr><th>ID</th><th>Nome</th><th>Indirizzo</th><th>Città</th><th>Modifica</th><th>Elimina</th></tr></thead>
         <tbody>$righeCinema</tbody>
       </table>
     </div>
@@ -154,7 +154,7 @@ $body = "
     </div>
     <div class='table-responsive'>
       <table class='table table-striped table-dark' id='saleTable'>
-        <thead><tr><th>ID</th><th>Nome</th><th>Capienza</th><th>Cinema</th><th>Azioni</th></tr></thead>
+        <thead><tr><th>ID</th><th>Nome</th><th>Capienza</th><th>Cinema</th><th>Modifica</th><th>Elimina</th></tr></thead>
         <tbody>$righeSale</tbody>
       </table>
     </div>
