@@ -27,7 +27,7 @@ $proiezioni = $pdo->query("
     INNER JOIN spettacolo s ON p.id_spettacolo = s.id
     INNER JOIN sala sa ON p.id_sala = sa.id
     INNER JOIN cinema c ON sa.id_cinema = c.id
-    WHERE p.data_ora > NOW() AND c.attivo = 'true' AND sa.attivo = 'true'   
+    WHERE p.data_ora > NOW() AND c.attivo = 'true' AND sa.attivo = 1
     ORDER BY p.data_ora ASC
 ")->fetchAll(PDO::FETCH_ASSOC);
 

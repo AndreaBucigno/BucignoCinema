@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -20,15 +21,34 @@
                     <h4 class="fw-bold mt-2">BucignoCinema</h4>
                     <p class="text-muted small">Accedi al tuo account</p>
                 </div>
+
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-circle me-2"></i>
+                        <?php echo htmlspecialchars($_SESSION['error']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php unset($_SESSION['error']); ?>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['message'])): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-2"></i>
+                        <?php echo htmlspecialchars($_SESSION['message']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php unset($_SESSION['message']); ?>
+                <?php endif; ?>
+
                 <form action="Handler/LoginHandler.php" method="POST">
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="nome@email.it" name="email" />
+                        <input type="email" class="form-control" placeholder="nome@email.it" name="email" required />
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" class="form-control" placeholder="••••••••" name="password" />
+                        <input type="password" class="form-control" placeholder="••••••••" name="password" required />
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -52,6 +72,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/BucignoCinema/assets/js/script.js"></script>
 </body>
 
 </html>

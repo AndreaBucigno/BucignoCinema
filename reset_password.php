@@ -3,6 +3,28 @@ session_start();
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/Handler/HandlerMail.php';
 
+function generateRandomPassword($length = 12)
+{
+    $sets = [
+        'ABCDEFGHJKLMNPQRSTUVWXYZ',
+        'abcdefghijkmnopqrstuvwxyz',
+        '23456789',
+        '!@#$%^&*()-_=+'
+    ];
+
+    $password = '';
+    foreach ($sets as $set) {
+        $password .= $set[random_int(0, strlen($set) - 1)];
+    }
+
+    $all = implode('', $sets);
+    for ($i = count($sets); $i < $length; $i++) {
+        $password .= $all[random_int(0, strlen($all) - 1)];
+    }
+
+    return str_shuffle($password);
+}
+
 $message      = '';
 $message_type = '';
 
@@ -16,40 +38,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $utente = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($utente) {
-            $mail = getMailerInstance();
+            $newPassword = generateRandomPassword(12);
+            try {
+                $update = $pdo->prepare("UPDATE utenti SET password = :password, password_hash = :password_hash WHERE id = :id");
+                $update->execute([
+                    ':password'      => $newPassword,
+                    ':password_hash' => password_hash($newPassword, PASSWORD_DEFAULT),
+                    ':id'            => $utente['id'],
+                ]);
 
-            if ($mail) {
-                try {
-                    $mail->addAddress($email, $utente['nome']);
-                    $mail->isHTML(true);
-                    $mail->Subject = 'BucignoCinema — Recupero Password';
-                    $mail->Body = "
-                        <div style='font-family:sans-serif;max-width:480px;margin:auto;'>
-                            <h2 style='color:#b02a37;'>BucignoCinema</h2>
-                            <p>Ciao <strong>{$utente['nome']}</strong>,</p>
-                            <p>Hai richiesto il recupero della tua password.</p>
-                            <p>Le tue credenziali di accesso sono:</p>
-                            <table style='border:1px solid #ddd;padding:12px;border-radius:6px;width:100%;'>
-                                <tr><td><strong>Email:</strong></td><td>{$utente['email']}</td></tr>
-                                <tr><td><strong>Password:</strong></td><td>{$utente['password']}</td></tr>
-                            </table>
-                            <p style='margin-top:16px;color:#888;font-size:12px;'>
-                                Se non hai richiesto questo recupero, ignora questa email.
-                            </p>
-                        </div>
-                    ";
-                    $mail->send();
-                    $message      = 'Email inviata! Controlla la tua casella di posta.';
-                    $message_type = 'success';
-                    appLog(10,$message);
-                } catch (\Exception $e) {
-                    $message      = 'Errore durante l\'invio: ' . $e->getMessage();
+                $mail = getMailerInstance();
+
+                if ($mail) {
+                    try {
+                        $mail->addAddress($email, $utente['nome']);
+                        $mail->isHTML(true);
+                        $mail->Subject = 'BucignoCinema — Recupero Password';
+                        $mail->Body = "
+                            <div style='font-family:sans-serif;max-width:480px;margin:auto;'>
+                                <h2 style='color:#b02a37;'>BucignoCinema</h2>
+                                <p>Ciao <strong>{$utente['nome']}</strong>,</p>
+                                <p>Hai richiesto il recupero della tua password.</p>
+                                <p>Le tue nuove credenziali di accesso sono:</p>
+                                <table style='border:1px solid #ddd;padding:12px;border-radius:6px;width:100%;'>
+                                    <tr><td><strong>Email:</strong></td><td>{$utente['email']}</td></tr>
+                                    <tr><td><strong>Password:</strong></td><td>{$newPassword}</td></tr>
+                                </table>
+                                <p style='margin-top:16px;color:#888;font-size:12px;'>
+                                    Se non hai richiesto questo recupero, ignora questa email.
+                                </p>
+                            </div>
+                        ";
+                        $mail->send();
+                        $message      = 'Email inviata! Controlla la tua casella di posta.';
+                        $message_type = 'success';
+                        appLog(10, $message);
+                    } catch (\Exception $e) {
+                        $message      = 'Errore durante l\'invio: ' . $e->getMessage();
+                        $message_type = 'danger';
+                        appLog(40, $message);
+                    }
+                } else {
+                    $message      = 'Server di posta non configurato.';
                     $message_type = 'danger';
-                    appLog(40,$message);
                 }
-            } else {
-                $message      = 'Server di posta non configurato.';
+            } catch (\Exception $e) {
+                $message      = 'Errore durante la generazione della password.';
                 $message_type = 'danger';
+                appLog(40, $e->getMessage());
             }
         } else {
             // Messaggio generico per sicurezza
@@ -112,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/BucignoCinema/assets/js/script.js"></script>
 </body>
 
 </html>

@@ -42,5 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ../login.php");
             exit;
         }
+    } else {
+        $_SESSION['error'] = "Email e password sono obbligatori";
+        appLog(30, "Tentativo di login con campi mancanti");
+        header("Location: ../login.php");
+        exit;
     }
 }
