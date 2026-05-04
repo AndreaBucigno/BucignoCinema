@@ -21,7 +21,6 @@
         </div>
     </nav>
 
-    <!-- CAROSELLO -->
     <div id="carouselCinema" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselCinema" data-bs-slide-to="0" class="active"></button>
@@ -67,7 +66,6 @@
         </button>
     </div>
 
-    <!-- RECENSIONI -->
     <div class="sezione-recensioni">
         <div class="container">
             <h2 class="sezione-titolo">Cosa dicono i nostri clienti</h2>
@@ -155,7 +153,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <small>&copy; 2026 BucignoCinema — Tutti i diritti riservati</small>
     </footer>
