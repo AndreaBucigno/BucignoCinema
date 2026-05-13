@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('clientiTable'))      new DataTable('#clientiTable');
     if (document.getElementById('UserprenotazioniTable'))       new DataTable('#UserprenotazioniTable');
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
     function getOrCreateFeedback(input) {
-        let feedback = input.parentNode.querySelector('.invalid-feedback');
+        let feedback = input.paren
+        tNode.querySelector('.invalid-feedback');
         if (!feedback) {
             feedback = document.createElement('div');
             feedback.className = 'invalid-feedback';
